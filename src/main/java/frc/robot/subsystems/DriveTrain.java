@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.RecordedJoystick;
 import frc.robot.commands.DriveTrainDefault;
 
 /**
@@ -43,7 +44,7 @@ public class DriveTrain extends Subsystem {
     diffDrive.arcadeDrive(speed, rot);
   }
 
-  public void drive(Joystick j) {
+  public void drive(RecordedJoystick j) {
     driveAuto(-j.getRawAxis(1), -j.getRawAxis(4));
   }
 }

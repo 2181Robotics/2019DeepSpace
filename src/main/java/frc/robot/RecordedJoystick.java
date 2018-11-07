@@ -87,7 +87,7 @@ public class RecordedJoystick {
         if (!replay) {
             return j.getRawAxis(axis);
         } else {
-            while (start.time<ds.getMatchTime()) {
+            while (start.next!=null && start.next.time<ds.getMatchTime()) {
                 start = start.next;
             }
             return start.joys[axis];
@@ -116,7 +116,7 @@ public class RecordedJoystick {
             if (!rj.replay) {
                 return j.getRawButton(button);
             } else {
-                while (rj.start.time<rj.ds.getMatchTime()) {
+                while (rj.start.next != null && rj.start.next.time<rj.ds.getMatchTime()) {
                     rj.start = rj.start.next;
                 }
                 return rj.start.butts[button];

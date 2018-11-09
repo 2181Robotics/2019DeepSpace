@@ -19,6 +19,11 @@ public class RecordedJoystick {
     private double startTime;
     private Saved last;
     public Saved start;
+    public boolean recording = false;
+
+    public Joystick getJoystick() {
+        return j;
+    }
     
     private class Saved implements Serializable {
         public Saved next;
@@ -40,18 +45,27 @@ public class RecordedJoystick {
     }
 
     public void startRecord() {
-        startTime = ds.getMatchTime();
-        last = new Saved(j, startTime);
-        start = last;
+        if (!recording) {
+            recording = true;
+            startTime = ds.getMatchTime();
+            last = new Saved(j, startTime);
+            start = last;
+        }
     }
 
     public void stepRecord() {
-        last.next = new Saved(j, startTime);
-        last = last.next;
+        if (recording) {
+            last.next = new Saved(j, startTime);
+            last = last.next;
+        }
+    }
+
+    public void stopRecord() {
+        recording = false;
     }
 
     public boolean isDone() {
-        return ds.getMatchTime()>15;
+        return (ds.getMatchTime()>15||!recording);
     }
 
     public void Save(String filename) {
@@ -97,6 +111,26 @@ public class RecordedJoystick {
     public void whenPressed(int button, Command command) {
         jb = new SpecialButton(j, button, jb, this);
         jb.whenPressed(command);
+    }
+
+    public void whenReleased(int button, Command command) {
+        jb = new SpecialButton(j, button, jb, this);
+        jb.whenReleased(command);
+    }
+
+    public void whileHeld(int button, Command command) {
+        jb = new SpecialButton(j, button, jb, this);
+        jb.whileHeld(command); //command is started repeatedly while button is held, possibly interrupting itself
+    }
+
+    public void toggleWhenPressed(int button, Command command) {
+        jb = new SpecialButton(j, button, jb, this);
+        jb.toggleWhenPressed(command);
+    }
+
+    public void cancelWhenPressed(int button, Command command) {
+        jb = new SpecialButton(j, button, jb, this);
+        jb.cancelWhenPressed(command);
     }
 
     private class SpecialButton extends Button {

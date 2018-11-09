@@ -42,11 +42,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.addDefault("No", false);
-    m_chooser.addObject("Yes", true);
-    SmartDashboard.putData("Record", m_chooser);
+    //m_chooser.addDefault("No", false);
+    //m_chooser.addObject("Yes", true);
+    //SmartDashboard.putData("Record", m_chooser);
     driveTrain = new DriveTrain();
     joystick = new RecordedJoystick(0);
+    SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
   }
 

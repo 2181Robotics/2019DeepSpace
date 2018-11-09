@@ -7,11 +7,27 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.RecordAuto;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+  RecordedJoystick joystick;
+
+  JoystickButton record;
+
+  public OI() {
+    joystick = Robot.joystick;
+
+    //Recording is done with a regular JoystickButton because a replay could trigger it's own
+    //function if it was passed through a RecordedJoystick
+    record = new JoystickButton(joystick.getJoystick(), 1);
+    record.toggleWhenPressed(new RecordAuto());
+  }
+  
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

@@ -38,6 +38,7 @@ public class RecordAuto extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.joystick.stopRecord();
     String filepath = SmartDashboard.getString("savepath", "");
     Robot.joystick.Save(filepath);
   }
@@ -46,5 +47,6 @@ public class RecordAuto extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

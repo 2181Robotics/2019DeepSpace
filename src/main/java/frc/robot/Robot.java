@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RecordAuto;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.TestbotDriveTrain;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -41,12 +42,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    joystick = new RecordedJoystick(0);
     m_oi = new OI();
     //m_chooser.addDefault("No", false);
     //m_chooser.addObject("Yes", true);
     //SmartDashboard.putData("Record", m_chooser);
-    driveTrain = new DriveTrain();
-    joystick = new RecordedJoystick(0);
+    driveTrain = new TestbotDriveTrain();
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
   }

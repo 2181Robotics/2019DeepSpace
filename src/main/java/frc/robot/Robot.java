@@ -44,9 +44,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     joystick = new RecordedJoystick(0);
     m_oi = new OI();
-    //m_chooser.addDefault("No", false);
-    //m_chooser.addObject("Yes", true);
-    //SmartDashboard.putData("Record", m_chooser);
+    m_chooser.addDefault("No", false);
+    m_chooser.addObject("Yes", true);
+    SmartDashboard.putData("Replay", m_chooser);
     driveTrain = new TestbotDriveTrain();
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    if (m_chooser.getSelected()) m_autonomousCommand = new RecordAuto();
+    if (!m_chooser.getSelected()) m_autonomousCommand = new RecordAuto();
     else joystick.replay = true;
 
     /*

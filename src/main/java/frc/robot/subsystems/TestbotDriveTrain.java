@@ -19,12 +19,21 @@ import frc.robot.commands.DriveTrainDefault;
 public class TestbotDriveTrain extends DriveTrain {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final Talon left1 = new Talon(0);
-  private final Talon left2 = new Talon(1);
-  private final Talon right1 = new Talon(2);
-  private final Talon right2 = new Talon(3);
-  private final DifferentialDrive diffDrive = new DifferentialDrive(left1, right1);
-  private final DifferentialDrive diffDrive2 = new DifferentialDrive(left2, right2);
+  private final Talon left1;
+  private final Talon left2;
+  private final Talon right1;
+  private final Talon right2;
+  private final DifferentialDrive diffDrive;
+  private final DifferentialDrive diffDrive2;
+
+  public TestbotDriveTrain() {
+    left1 = new Talon(0);
+    left2 = new Talon(1);
+    right1 = new Talon(2);
+    right2 = new Talon(3);
+    diffDrive = new DifferentialDrive(left1, right1);
+    diffDrive2 = new DifferentialDrive(left2, right2);
+  }
 
   @Override
   public void initDefaultCommand() {

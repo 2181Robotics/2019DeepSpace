@@ -22,13 +22,18 @@ import frc.robot.commands.DriveTrainDefault;
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final WPI_TalonSRX left1 = new WPI_TalonSRX(3);
-  private final WPI_TalonSRX left2 = new WPI_TalonSRX(4);
-  private final WPI_TalonSRX right1 = new WPI_TalonSRX(5);
-  private final WPI_TalonSRX right2 = new WPI_TalonSRX(6);
-  private final DifferentialDrive diffDrive = new DifferentialDrive(left1, right1);
+  private final WPI_TalonSRX left1;
+  private final WPI_TalonSRX left2;
+  private final WPI_TalonSRX right1;
+  private final WPI_TalonSRX right2;
+  private final DifferentialDrive diffDrive;
 
   public DriveTrain() {
+    left1 = new WPI_TalonSRX(3);
+    left2 = new WPI_TalonSRX(4);
+    right1 = new WPI_TalonSRX(5);
+    right2 = new WPI_TalonSRX(6);
+    diffDrive = new DifferentialDrive(left1, right1);
     left2.follow(left1);
     right2.follow(right1);
   }

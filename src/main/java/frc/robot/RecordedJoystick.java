@@ -65,7 +65,12 @@ public class RecordedJoystick {
     }
 
     public boolean isDone() {
-        return (ds.getMatchTime()>15||!recording);
+        return ((ds.getMatchTime()-startTime)>15||!recording);
+    }
+
+    public double getTimeRemain() {
+        if (recording) return 15-(ds.getMatchTime()-startTime);
+        else return 0;
     }
 
     public void Save(String filename) {
@@ -147,6 +152,7 @@ public class RecordedJoystick {
         }
 
         public boolean get() {
+            // returns true when button is supposed to be active
             if (!rj.replay) {
                 return j.getRawButton(button);
             } else {

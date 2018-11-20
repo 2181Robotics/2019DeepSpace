@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    if (!m_chooser.getSelected()) joystick.replay = true;
+    if (m_chooser.getSelected()) joystick.replay = true;
     else joystick.replay = false;
 
     /*

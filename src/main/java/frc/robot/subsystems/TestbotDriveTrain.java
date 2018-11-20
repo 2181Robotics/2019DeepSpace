@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -21,18 +22,20 @@ public class TestbotDriveTrain extends DriveTrain {
   // here. Call these from Commands.
   private final Talon left1;
   private final Talon left2;
+  private final SpeedControllerGroup left;
   private final Talon right1;
   private final Talon right2;
+  private final SpeedControllerGroup right;
   private final DifferentialDrive diffDrive;
-  private final DifferentialDrive diffDrive2;
 
   public TestbotDriveTrain() {
     left1 = new Talon(0);
     left2 = new Talon(1);
+    left = new SpeedControllerGroup(left1, left2);
     right1 = new Talon(2);
     right2 = new Talon(3);
-    diffDrive = new DifferentialDrive(left1, right1);
-    diffDrive2 = new DifferentialDrive(left2, right2);
+    right = new SpeedControllerGroup(right1, right2);
+    diffDrive = new DifferentialDrive(left, right);
   }
 
   @Override
@@ -43,7 +46,6 @@ public class TestbotDriveTrain extends DriveTrain {
 
   public void driveAuto(double speed, double rot) {
     diffDrive.arcadeDrive(speed, rot);
-    diffDrive2.arcadeDrive(speed, rot);
   }
 
   public void drive(RecordedJoystick j) {

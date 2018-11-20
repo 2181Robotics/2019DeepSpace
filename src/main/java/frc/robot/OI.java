@@ -9,7 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.RecordAuto;
-
+import frc.robot.commands.ZuccIn;
+import frc.robot.commands.ZuccOut;
+import frc.robot.commands.LiftUp;
+import frc.robot.commands.LiftDown;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -26,6 +29,11 @@ public class OI {
     //function if it was passed through a RecordedJoystick
     record = new JoystickButton(joystick.getJoystick(), 1);
     record.toggleWhenPressed(new RecordAuto());
+
+    joystick.whileHeld(3,new ZuccIn());
+    joystick.whileHeld(4,new ZuccOut());
+    joystick.whileHeld(5,new LiftUp());
+    joystick.whileHeld(6,new LiftDown());
   }
   
   //// CREATING BUTTONS
@@ -55,4 +63,6 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+
+
 }

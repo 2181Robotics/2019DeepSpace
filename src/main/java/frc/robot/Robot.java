@@ -19,6 +19,10 @@ import frc.robot.commands.RecordAuto;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.TestbotDriveTrain;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.*;
+import frc.robot.subsystems.Zucc;
+import frc.robot.subsystems.Lift;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +34,8 @@ import frc.robot.subsystems.DriveTrain;
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
+  public static Zucc m_Zucc = new Zucc();
+  public static Lift m_Lift = new Lift();
 
   Command m_autonomousCommand;
   SendableChooser<Boolean> m_chooser = new SendableChooser<>();
@@ -47,7 +53,7 @@ public class Robot extends TimedRobot {
     m_chooser.addDefault("No", false);
     m_chooser.addObject("Yes", true);
     SmartDashboard.putData("Replay", m_chooser);
-    driveTrain = new TestbotDriveTrain();
+    driveTrain = new DriveTrain();
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
   }
@@ -91,7 +97,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    if (!m_chooser.getSelected()) m_autonomousCommand = new RecordAuto();
+    if (!m_chooser.getSelected()) m_autonomousCommand = new Auto_test();
     else joystick.replay = true;
 
     /*

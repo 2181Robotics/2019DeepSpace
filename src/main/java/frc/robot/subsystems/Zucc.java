@@ -7,44 +7,34 @@
 
 package frc.robot.subsystems;
 
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.RecordedJoystick;
-import frc.robot.commands.DriveTrainDefault;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 /**
  * Add your docs here.
  */
-public class DriveTrain extends Subsystem {
+public class Zucc extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final WPI_TalonSRX left1 = new WPI_TalonSRX(3);
-  private final WPI_TalonSRX left2 = new WPI_TalonSRX(4);
-  private final WPI_TalonSRX right1 = new WPI_TalonSRX(5);
-  private final WPI_TalonSRX right2 = new WPI_TalonSRX(6);
-  private final DifferentialDrive diffDrive = new DifferentialDrive(left1, right1);
+  private final Talon left = new Talon(0);
+  private final Talon right = new Talon(1);
 
-  public DriveTrain() {
-    left2.follow(left1);
-    right2.follow(right1);
+  private final DifferentialDrive diffDrive = new DifferentialDrive(left, right);
+
+  public void SuccOfTheZucc(){
+    diffDrive.arcadeDrive(0,0.5);
+
+  }
+
+  public void UnSuccOfTheZucc(){
+    diffDrive.arcadeDrive(0,-0.5);
+
   }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new DriveTrainDefault());
-  }
-
-  public void driveAuto(double speed, double rot) {
-    diffDrive.arcadeDrive(speed, rot);
-  }
-
-  public void drive(RecordedJoystick j) {
-    driveAuto(-j.getRawAxis(1), -j.getRawAxis(4));
   }
 }

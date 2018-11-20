@@ -9,43 +9,29 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.TestbotDriveTrain;
-
-public class Drive extends Command {
-  private double time;
-  private double spd;
-  private double rot;
-
-  public Drive(double spd, double rot, double time) {
-    this.time = time;
-    this.spd = spd;
-    this.rot = rot;
+public class LiftDown extends Command {
+  public LiftDown() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.m_Lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(time);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.driveAuto(spd, rot);
+    Robot.m_Lift.LiftDown();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(isTimedOut()) {
-      return true;
-    } else {
-      return false;
-    }
-    }
-  
+    return true;
+  }
 
   // Called once after isFinished returns true
   @Override

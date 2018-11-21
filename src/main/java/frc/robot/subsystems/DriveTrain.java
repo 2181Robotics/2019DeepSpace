@@ -50,7 +50,15 @@ public class DriveTrain extends Subsystem {
   }
 
   public void drive(RecordedJoystick j) {
-    driveAuto(-j.getRawAxis(1), -j.getRawAxis(4));
+    double speed = -j.getRawAxis(1);
+    if (Math.abs(speed)<.2) {
+      speed = 0;
+    }
+    double rotation = -j.getRawAxis(4);
+    if (Math.abs(rotation)<.2) {
+      rotation = 0;
+    }
+    driveAuto(speed, rotation);
   }
 }
 

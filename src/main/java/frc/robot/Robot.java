@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
     m_chooser.addDefault("No", false);
     m_chooser.addObject("Yes", true);
     SmartDashboard.putData("Replay", m_chooser);
-    driveTrain = new TestbotDriveTrain();
+    driveTrain = new DriveTrain();
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
   }

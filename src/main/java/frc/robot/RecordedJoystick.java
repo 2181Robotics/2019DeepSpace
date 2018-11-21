@@ -2,12 +2,14 @@ package frc.robot;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -16,7 +18,7 @@ public class RecordedJoystick {
     private SpecialButton jb;
     public boolean replay = false;
     public DriverStation ds = DriverStation.getInstance();
-    private double startTime;
+    private Timer clock = new Timer();
     private Saved last;
     public Saved start;
     public boolean recording = false;
@@ -24,52 +26,35 @@ public class RecordedJoystick {
     public Joystick getJoystick() {
         return j;
     }
-    
-    private class Saved implements Serializable {
-        public Saved next;
-        public double time;
-        private double[] joys;
-        private boolean[] butts;
-
-        public Saved(Joystick j, double startTime) {
-            time = DriverStation.getInstance().getMatchTime() - startTime;
-            joys = new double[j.getAxisCount()];
-            for (int i=0; i<j.getAxisCount(); i++) {
-                joys[i] = j.getRawAxis(i);
-            }
-            butts = new boolean[j.getButtonCount()];
-            for (int i=0; i<j.getButtonCount(); i++) {
-                butts[i] = j.getRawButton(i);
-            }
-        }
-    }
 
     public void startRecord() {
         if (!recording) {
             recording = true;
-            startTime = ds.getMatchTime();
-            last = new Saved(j, startTime);
+            clock.reset();
+            clock.start();
+            last = new Saved(j, clock.get());
             start = last;
         }
     }
 
     public void stepRecord() {
         if (recording) {
-            last.next = new Saved(j, startTime);
+            last.next = new Saved(j, clock.get());
             last = last.next;
         }
     }
 
     public void stopRecord() {
         recording = false;
+        clock.stop();
     }
 
     public boolean isDone() {
-        return ((ds.getMatchTime()-startTime)>15||!recording);
+        return ((clock.get())>15||!recording);
     }
 
     public double getTimeRemain() {
-        if (recording) return 15-(ds.getMatchTime()-startTime);
+        if (recording) return 15-(clock.get());
         else return 0;
     }
 
@@ -78,8 +63,8 @@ public class RecordedJoystick {
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(start);
+            oos.flush();
             oos.close();
-            fos.close();
         } catch (Exception e) {
             DriverStation.reportError(e.toString(), false);
         }
@@ -159,8 +144,54 @@ public class RecordedJoystick {
                 while (rj.start.next != null && rj.start.next.time<rj.ds.getMatchTime()) {
                     rj.start = rj.start.next;
                 }
-                return rj.start.butts[button];
+                return rj.start.butts[button-1];
             }
+        }
+    }
+}
+
+class Saved implements Serializable {
+    public Saved next;
+    public double time;
+    public double[] joys;
+    public boolean[] butts;
+    public boolean last=false;
+
+    public Saved(Joystick j, double startTime) {
+        time = DriverStation.getInstance().getMatchTime() - startTime;
+        joys = new double[j.getAxisCount()];
+        for (int i=0; i<j.getAxisCount(); i++) {
+            joys[i] = j.getRawAxis(i);
+        }
+        butts = new boolean[j.getButtonCount()];
+        for (int i=1; i<=j.getButtonCount(); i++) {
+            butts[i-1] = j.getRawButton(i);
+        }
+    }
+
+    private void writeObject(ObjectOutputStream oos) 
+    throws IOException {
+        oos.defaultWriteObject();
+        oos.writeObject(time);
+        oos.writeObject(joys);
+        oos.writeObject(butts);
+        if (next!=null) {
+            oos.writeObject(true);
+        } else {
+            oos.writeObject(false);
+            oos.writeObject(next);
+        };
+    }
+
+    private void readObject(ObjectInputStream ois) 
+    throws ClassNotFoundException, IOException {
+        ois.defaultReadObject();
+        time = (double)ois.readObject();
+        joys = (double[])ois.readObject();
+        butts = (boolean[])ois.readObject();
+        last = (boolean)ois.readObject();
+        if (!last) {
+            next = (Saved)ois.readObject();
         }
     }
 }

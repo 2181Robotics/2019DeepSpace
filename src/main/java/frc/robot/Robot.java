@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DriveTrainDefault;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ReplayAuto;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.TestbotDriveTrain;
 import frc.robot.subsystems.DriveTrain;
@@ -62,6 +64,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putBoolean("Recording", joystick.recording);
+    SmartDashboard.putBoolean("Replaying", joystick.replay);
     SmartDashboard.putNumber("RecordTimeLeft", joystick.getTimeRemain());
   }
 
@@ -92,8 +95,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    if (m_chooser.getSelected()) joystick.replay = true;
-    else joystick.replay = false;
+    if (m_chooser.getSelected()) {
+      m_autonomousCommand = new ReplayAuto();
+    }
+    // some else for normal autonomous
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -125,7 +130,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    joystick.replay = false;
   }
 
   /**

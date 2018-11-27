@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RecordedJoystick {
     private Joystick j;
@@ -25,6 +26,17 @@ public class RecordedJoystick {
 
     public Joystick getJoystick() {
         return j;
+    }
+
+    public void startReplay() {
+        clock.reset();
+        clock.start();
+        replay = true;
+    }
+
+    public void stopReplay() {
+        replay = false;
+        clock.stop();
     }
 
     public void startRecord() {
@@ -54,8 +66,7 @@ public class RecordedJoystick {
     }
 
     public double getTimeRemain() {
-        if (recording) return 15-(clock.get());
-        else return 0;
+        return 15-(clock.get());
     }
 
     public void Save(String filename) {
@@ -91,7 +102,8 @@ public class RecordedJoystick {
         if (!replay) {
             return j.getRawAxis(axis);
         } else {
-            while (start.next!=null && start.next.time<ds.getMatchTime()) {
+            while (start.next!=null && start.next.time<clock.get()) {
+                SmartDashboard.putNumber("next time", start.next.time);
                 start = start.next;
             }
             return start.joys[axis];
@@ -141,7 +153,7 @@ public class RecordedJoystick {
             if (!rj.replay) {
                 return j.getRawButton(button);
             } else {
-                while (rj.start.next != null && rj.start.next.time<rj.ds.getMatchTime()) {
+                while (rj.start.next != null && rj.start.next.time<rj.clock.get()) {
                     rj.start = rj.start.next;
                 }
                 return rj.start.butts[button-1];
@@ -158,7 +170,7 @@ class Saved implements Serializable {
     public boolean last=false;
 
     public Saved(Joystick j, double startTime) {
-        time = DriverStation.getInstance().getMatchTime() - startTime;
+        time = startTime;
         joys = new double[j.getAxisCount()];
         for (int i=0; i<j.getAxisCount(); i++) {
             joys[i] = j.getRawAxis(i);
@@ -169,29 +181,29 @@ class Saved implements Serializable {
         }
     }
 
-    private void writeObject(ObjectOutputStream oos) 
-    throws IOException {
-        oos.defaultWriteObject();
-        oos.writeObject(time);
-        oos.writeObject(joys);
-        oos.writeObject(butts);
-        if (next!=null) {
-            oos.writeObject(true);
-        } else {
-            oos.writeObject(false);
-            oos.writeObject(next);
-        };
-    }
+    // private void writeObject(ObjectOutputStream oos) 
+    // throws IOException {
+    //     oos.defaultWriteObject();
+    //     oos.writeObject(time);
+    //     oos.writeObject(joys);
+    //     oos.writeObject(butts);
+    //     if (next!=null) {
+    //         oos.writeObject(true);
+    //     } else {
+    //         oos.writeObject(false);
+    //         oos.writeObject(next);
+    //     };
+    // }
 
-    private void readObject(ObjectInputStream ois) 
-    throws ClassNotFoundException, IOException {
-        ois.defaultReadObject();
-        time = (double)ois.readObject();
-        joys = (double[])ois.readObject();
-        butts = (boolean[])ois.readObject();
-        last = (boolean)ois.readObject();
-        if (!last) {
-            next = (Saved)ois.readObject();
-        }
-    }
+    // private void readObject(ObjectInputStream ois) 
+    // throws ClassNotFoundException, IOException {
+    //     ois.defaultReadObject();
+    //     time = (double)ois.readObject();
+    //     joys = (double[])ois.readObject();
+    //     butts = (boolean[])ois.readObject();
+    //     last = (boolean)ois.readObject();
+    //     if (!last) {
+    //         next = (Saved)ois.readObject();
+    //     }
+    // }
 }

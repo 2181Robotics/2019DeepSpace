@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RecordedJoystick;
 import frc.robot.commands.DriveTrainDefault;
 
@@ -50,7 +51,9 @@ public class DriveTrain extends Subsystem {
   }
 
   public void drive(RecordedJoystick j) {
+    SmartDashboard.putString("drive", "called");
     double speed = -j.getRawAxis(1);
+    SmartDashboard.putNumber("speed", speed);
     if (Math.abs(speed)<.2) {
       speed = 0;
     }

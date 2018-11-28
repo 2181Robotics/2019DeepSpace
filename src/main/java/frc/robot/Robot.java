@@ -19,6 +19,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ReplayAuto;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.TestbotDriveTrain;
+import frc.robot.subsystems.Zucc;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
   SendableChooser<Boolean> m_chooser = new SendableChooser<>();
   public static RecordedJoystick joystick;
   public static DriveTrain driveTrain;
+  public static Zucc zucc;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -44,13 +46,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     joystick = new RecordedJoystick(0);
-    m_oi = new OI();
     m_chooser.addDefault("No", false);
     m_chooser.addObject("Yes", true);
     SmartDashboard.putData("Replay", m_chooser);
     driveTrain = new DriveTrain();
+    zucc = new Zucc();
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
+    m_oi = new OI();
   }
 
   /**

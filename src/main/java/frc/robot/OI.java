@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.RecordAuto;
+import frc.robot.commands.ZuccIn;
+import frc.robot.commands.ZuccOut;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,11 +23,14 @@ public class OI {
 
   public OI() {
     joystick = Robot.joystick;
+    joystick.whileHeld(3, new ZuccIn());
+    joystick.whileHeld(4, new ZuccOut());
 
     //Recording is done with a regular JoystickButton because a replay could trigger it's own
     //function if it was passed through a RecordedJoystick
     record = new JoystickButton(joystick.getJoystick(), 1);
     record.toggleWhenPressed(new RecordAuto());
+
   }
   
   //// CREATING BUTTONS

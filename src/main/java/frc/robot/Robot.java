@@ -14,10 +14,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoReplay;
 import frc.robot.commands.DriveTrainDefault;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.GroupTest;
 import frc.robot.commands.ReplayAuto;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.TestbotDriveTrain;
 import frc.robot.subsystems.Zucc;
 import frc.robot.subsystems.DriveTrain;
@@ -34,23 +37,42 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
 
   Command m_autonomousCommand;
-  SendableChooser<Boolean> m_chooser = new SendableChooser<>();
+  public static SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public static SendableChooser<String> to_record = new SendableChooser<>();
   public static RecordedJoystick joystick;
   public static DriveTrain driveTrain;
   public static Zucc zucc;
+  public static Lift lift;
 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+
+
+  private void recordSetUp() {
+    to_record.addDefault("R_Test", "test.txt");
+    to_record.addObject("R_Left", "left.txt");
+    to_record.addObject("R_Right", "right.txt");
+    SmartDashboard.putData("Record", to_record);
+  }
+
+  private void replaySetUp() {
+    m_chooser.addDefault("Test", new AutoReplay("test.txt"));
+    m_chooser.addObject("Left", new AutoReplay("left.txt"));
+    m_chooser.addObject("Right", new AutoReplay("right.txt"));
+    m_chooser.addObject("Group", new GroupTest());
+    SmartDashboard.putData("Replay", m_chooser);
+  }
+
   @Override
   public void robotInit() {
     joystick = new RecordedJoystick(0);
-    m_chooser.addDefault("No", false);
-    m_chooser.addObject("Yes", true);
-    SmartDashboard.putData("Replay", m_chooser);
+    recordSetUp();
+    replaySetUp();
     driveTrain = new DriveTrain();
     zucc = new Zucc();
+    lift = new Lift();
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putString("savepath", "");
     m_oi = new OI();
@@ -98,9 +120,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    if (m_chooser.getSelected()) {
-      m_autonomousCommand = new ReplayAuto();
-    }
+    m_autonomousCommand = m_chooser.getSelected();
     // some else for normal autonomous
 
     /*

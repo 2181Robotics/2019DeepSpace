@@ -57,10 +57,12 @@ public class DriveTrain extends Subsystem {
     if (Math.abs(speed)<.2) {
       speed = 0;
     }
+    speed*=.75;
     double rotation = -j.getRawAxis(4);
     if (Math.abs(rotation)<.2) {
       rotation = 0;
     }
+    rotation*=.75;
     driveAuto(speed, rotation);
   }
 }

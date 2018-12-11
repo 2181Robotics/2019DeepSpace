@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.RecordAuto;
+import frc.robot.commands.SetLiftSpeed;
 import frc.robot.commands.ZuccIn;
 import frc.robot.commands.ZuccOut;
 
@@ -26,6 +27,8 @@ public class OI {
     joystick.whileHeld(3, new ZuccIn());
     joystick.whileHeld(4, new ZuccOut());
 
+    joystick.whileHeld(5, new SetLiftSpeed(.6));
+    joystick.whileHeld(6, new SetLiftSpeed(-.6));
     //Recording is done with a regular JoystickButton because a replay could trigger it's own
     //function if it was passed through a RecordedJoystick
     record = new JoystickButton(joystick.getJoystick(), 1);

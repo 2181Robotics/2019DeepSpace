@@ -8,46 +8,47 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class RecordAuto extends Command {
-
-  public RecordAuto() {
+public class LiftDefault extends Command {
+  public LiftDefault() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.joystick.startRecord();
+    double left = Robot.joystick.getRawAxis(4);
+    if (Math.abs(left)<.2) {
+      left = 0;
+    }
+    double right = Robot.joystick.getRawAxis(5);
+    if (Math.abs(right)<.2) {
+      right = 0;
+    }
+    Robot.lift.setMotors(left-right);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.joystick.stepRecord();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.joystick.stopRecord();
-    String filepath = "/home/lvuser/"+Robot.to_record.getSelected();
-    Robot.joystick.Save(filepath);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

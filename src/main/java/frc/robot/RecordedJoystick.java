@@ -15,6 +15,29 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RecordedJoystick {
+
+    private class RecordNode {
+        private String name;
+        private Saved start;
+        private RecordNode next;
+
+        public RecordNode(String name, Saved start, RecordNode next) {
+            this.name = name;
+            this.start = start;
+            this.next = next;
+        }
+
+        public RecordNode find(String thing) {
+            if (next==null||name==null) {
+                return null;
+            } else if (name.equals(thing)) {
+                return this;
+            } else {
+                return next.find(thing);
+            }
+        }
+    }
+
     private Joystick j;
     private SpecialButton jb;
     public boolean replay = false;
@@ -23,6 +46,8 @@ public class RecordedJoystick {
     private Saved last;
     public Saved start;
     public boolean recording = false;
+
+    private RecordNode head = new RecordNode(null, null, null);
 
     public Joystick getJoystick() {
         return j;
@@ -62,7 +87,7 @@ public class RecordedJoystick {
     }
 
     public boolean isDone() {
-        return ((clock.get())>15||!recording);
+        return (start.next==null);
     }
 
     public double getTimeRemain() {
@@ -79,6 +104,12 @@ public class RecordedJoystick {
         } catch (Exception e) {
             DriverStation.reportError(e.toString(), false);
         }
+        RecordNode test = head.find(filename);
+        if (test!=null) {
+            test.start = start;
+        } else {
+            head = new RecordNode(filename, start, head);
+        }
     }
 
     public void Load(String filename) {
@@ -89,10 +120,20 @@ public class RecordedJoystick {
             ois.close();
             fis.close();
         } catch (Exception e) {
-            DriverStation.reportError(e.toString(), false);
+            DriverStation.reportError(e.toString(), true);
+        }
+        RecordNode test = head.find(filename);
+        if (test==null) {
+            head = new RecordNode(filename, start, head);
         }
     }
 
+    public void setStart(String name) {
+        RecordNode test = head.find(name);
+        if (test!=null) {
+            start = test.start;
+        }
+    }
 
     public RecordedJoystick(int port) {
         j = new Joystick(port);

@@ -30,10 +30,10 @@ public class DriveTrain extends Subsystem {
   private final DifferentialDrive diffDrive;
 
   public DriveTrain() {
-    left1 = new WPI_TalonSRX(3);
-    left2 = new WPI_TalonSRX(4);
-    right1 = new WPI_TalonSRX(5);
-    right2 = new WPI_TalonSRX(6);
+    left1 = new WPI_TalonSRX(3); left1.configOpenloopRamp(0, 10);
+    left2 = new WPI_TalonSRX(4); left2.configOpenloopRamp(0, 10);
+    right1 = new WPI_TalonSRX(5); right1.configOpenloopRamp(0, 10);
+    right2 = new WPI_TalonSRX(6); right2.configOpenloopRamp(0, 10);
     diffDrive = new DifferentialDrive(left1, right1);
     left2.follow(left1);
     right2.follow(right1);

@@ -19,11 +19,11 @@ public class LiftDefault extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    double left = Robot.joystick.getRawAxis(4);
+    double left = Robot.joystick.getRawAxis(2);
     if (Math.abs(left)<.2) {
       left = 0;
     }
-    double right = Robot.joystick.getRawAxis(5);
+    double right = Robot.joystick.getRawAxis(3);
     if (Math.abs(right)<.2) {
       right = 0;
     }

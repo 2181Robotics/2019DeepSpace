@@ -18,7 +18,6 @@ import frc.robot.commands.AutoReplay;
 import frc.robot.commands.DriveTrainDefault;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.GroupTest;
-import frc.robot.commands.ReplayAuto;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.TestbotDriveTrain;
@@ -90,7 +89,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putBoolean("Recording", joystick.recording);
     SmartDashboard.putBoolean("Replaying", joystick.replay);
-    SmartDashboard.putNumber("RecordTimeLeft", joystick.getTimeRemain());
+    SmartDashboard.putNumber("RecordTime", joystick.getTime());
   }
 
   /**

@@ -90,8 +90,8 @@ public class RecordedJoystick {
         return (start.next==null);
     }
 
-    public double getTimeRemain() {
-        return 15-(clock.get());
+    public double getTime() {
+        return clock.get();
     }
 
     public void Save(String filename) {

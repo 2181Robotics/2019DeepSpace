@@ -11,9 +11,7 @@ of creating your own buttons. The only time you should make a button yourself is
 the record button, as that in most cases should not be triggered by a replay.
 
 The next thing that should be created is an instance of SaveOrganizer. This will be passed to
-multiple classes, and can be used to use a replay in more than one place (for example, in multiple
-different command groups). You MUST NOT make multiple instances of ReplayAuto that reference the 
-same file. If this is done, the second instance and beyond will not nessecarily work as intended.
+multiple classes and is what stores all the currently loaded replays. 
 
 You are likely only going to create one instance of RecordAuto, as it will be tied to a button as
 stated before. This caused some issues when designing RecordAuto, so some potenially unwanted steps
@@ -29,18 +27,11 @@ Finally, all that needs to be made are instances of ReplayAuto. These act like n
 can be used anywhere a normal command can (for example, autonomous, command groups, tied to a 
 button). ReplayAuto requires the filepath it will be tied to, an instance of RecordedJoystick that
 matches the one it was saved from (meaning don't record with an xbox controller and then try to
-play back on a large flight joystick), and finally your instance of SaveOrganizer. You should only
-create one ReplayAuto per filepath, as stated before, and if you must use the same replay in
-places, you need to use yourSaveOrganizer.findReplay(filepath). This will return the instance of 
-ReplayAuto tied to that filepath if it is there. If you are unsure whether or not an instance of
-ReplayAuto has been created yet for a given filepath, you can call findReplay, and if it returns
-null, create a new ReplayAuto. This shouldn't have to be done too much however, as it shouldn't 
-be too difficult to figure out in which order you need the replays.
-NOTE: Do not add the commands to a command group with a timeout. An exception may arrise when
-adding the same replay to multiple command groups using timeouts, so it is advised that this 
-is to be avoided.
+play back on a large flight joystick), and finally your instance of SaveOrganizer. You can create 
+multiple instances of ReplayAuto with the same filename, and it won't take up much more memory as 
+long as you use the same SaveOrganizer for all of them.
 
-For debug purposes, ReplayAuto also provides an isSaving() method which returns true if it is in 
+For debug purposes, RecordAuto also provides an isSaving() method which returns true if it is in 
 the process of saving. It is possible to be saving multiple files at a time, as long as they are 
 different files. Because of this, isSaving() is rarely needed, but could be useful to have on 
 SmartDashboard if you are re-recording replays multiple times.

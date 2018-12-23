@@ -11,23 +11,28 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ReplayAuto extends Command {
 
-  public Saved start;
   private RecordedJoystick joystick;
+  private String filename;
+  private SaveOrganizer group;
 
   public ReplayAuto(String filename, RecordedJoystick joystick, SaveOrganizer group) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    this.filename = filename;
     this.joystick = joystick;
-    group.add(filename, this);
-    start = joystick.makePlaceHolder();
-    LoadCommand lc = new LoadCommand(filename, start);
-    lc.start();
+    this.group = group;
+    if (!group.exists(filename)) {
+        Saved start = joystick.makePlaceHolder();
+        group.add(filename, start);
+        LoadCommand lc = new LoadCommand(filename, start);
+        lc.start();
+    }
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    joystick.start = start.next;
+    group.set(filename, joystick);
     joystick.startReplay();
   }
 

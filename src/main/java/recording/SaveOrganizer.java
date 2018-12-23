@@ -3,11 +3,11 @@ package recording;
 public class SaveOrganizer {
     private class BinaryNode {
         private String key;
-        private ReplayAuto value;
+        private Saved value;
         private BinaryNode left;
         private BinaryNode right;
 
-        public BinaryNode(String key, ReplayAuto value) {
+        public BinaryNode(String key, Saved value) {
             this.key = key;
             this.value = value;
         }
@@ -57,7 +57,7 @@ public class SaveOrganizer {
         head = new BinaryNode("", null);
     }
 
-    public void add(String name, ReplayAuto value) {
+    public void add(String name, Saved value) {
         BinaryNode node = new BinaryNode(name, value);
         head.add(node);
     }
@@ -65,11 +65,18 @@ public class SaveOrganizer {
     public void updateReplay(String name, Saved start) {
         BinaryNode toUpdate = head.find(name);
         if (toUpdate!=null) {
-            toUpdate.value.start.next = start;
+            toUpdate.value.next = start;
         }
     }
 
-    public ReplayAuto findReplay(String name) {
-        return head.find(name).value;
+    public boolean exists(String name) {
+        return (head.find(name)!=null);
+    }
+
+    public void set(String name, RecordedJoystick joystick) {
+        BinaryNode thing = head.find(name);
+        if (thing!=null) {
+            joystick.start = thing.value.next;
+        }
     }
 }

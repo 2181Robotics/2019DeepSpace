@@ -14,15 +14,13 @@ public class RecordAuto extends Command {
 
   private RecordedJoystick joystick;
   private SendableChooser<String> choice;
-  private SaveOrganizer group;
   private SaveCommand sc;
 
-  public RecordAuto(RecordedJoystick joystick, SendableChooser<String> choice, SaveOrganizer group) {
+  public RecordAuto(RecordedJoystick joystick, SendableChooser<String> choice) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.joystick = joystick;
     this.choice = choice;
-    this.group = group;
   }
 
   // Called just before this Command runs the first time
@@ -48,7 +46,7 @@ public class RecordAuto extends Command {
   protected void end() {
     joystick.stopRecord();
     String filepath = choice.getSelected();
-    group.updateReplay(filepath, joystick.start);
+    joystick.updateReplay(filepath, joystick.start);
     sc = new SaveCommand(filepath, joystick.start, joystick.total);
     sc.start();
   }

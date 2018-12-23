@@ -13,17 +13,15 @@ public class ReplayAuto extends Command {
 
   private RecordedJoystick joystick;
   private String filename;
-  private SaveOrganizer group;
 
-  public ReplayAuto(String filename, RecordedJoystick joystick, SaveOrganizer group) {
+  public ReplayAuto(String filename, RecordedJoystick joystick) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.filename = filename;
     this.joystick = joystick;
-    this.group = group;
-    if (!group.exists(filename)) {
+    if (!joystick.exists(filename)) {
         Saved start = joystick.makePlaceHolder();
-        group.add(filename, start);
+        joystick.add(filename, start);
         LoadCommand lc = new LoadCommand(filename, start);
         lc.start();
     }
@@ -32,7 +30,7 @@ public class ReplayAuto extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    group.set(filename, joystick);
+    joystick.set(filename);
     joystick.startReplay();
   }
 

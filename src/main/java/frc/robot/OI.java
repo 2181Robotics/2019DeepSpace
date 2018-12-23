@@ -34,7 +34,7 @@ public class OI {
     //Recording is done with a regular JoystickButton because a replay could trigger it's own
     //function if it was passed through a RecordedJoystick
     record = new JoystickButton(joystick.getJoystick(), 1);
-    rc = new RecordAuto(joystick, Robot.to_record, Robot.so);
+    rc = new RecordAuto(joystick, Robot.to_record);
     record.toggleWhenPressed(rc);
   }
 

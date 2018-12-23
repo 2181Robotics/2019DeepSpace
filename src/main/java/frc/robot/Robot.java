@@ -23,7 +23,6 @@ import frc.robot.subsystems.TestbotDriveTrain;
 import frc.robot.subsystems.Zucc;
 import recording.RecordedJoystick;
 import recording.ReplayAuto;
-import recording.SaveOrganizer;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -41,7 +40,6 @@ public class Robot extends TimedRobot {
   public static SendableChooser<Command> m_chooser = new SendableChooser<>();
   public static SendableChooser<String> to_record = new SendableChooser<>();
   public static RecordedJoystick joystick;
-  public static SaveOrganizer so;
   public static DriveTrain driveTrain;
   public static Zucc zucc;
   public static Lift lift;
@@ -60,9 +58,9 @@ public class Robot extends TimedRobot {
   }
 
   private void replaySetUp() {
-    m_chooser.addDefault("Test", new ReplayAuto("/U/test.txt", joystick, so));
-    m_chooser.addObject("Left", new ReplayAuto("/U/left.txt", joystick, so));
-    m_chooser.addObject("Right", new ReplayAuto("/U/right.txt", joystick, so));
+    m_chooser.addDefault("Test", new ReplayAuto("/U/test.txt", joystick));
+    m_chooser.addObject("Left", new ReplayAuto("/U/left.txt", joystick));
+    m_chooser.addObject("Right", new ReplayAuto("/U/right.txt", joystick));
     m_chooser.addObject("Group", new GroupTest());
     SmartDashboard.putData("Replay", m_chooser);
   }
@@ -70,7 +68,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     joystick = new RecordedJoystick(0);
-    so = new SaveOrganizer();
     recordSetUp();
     replaySetUp();
     driveTrain = new DriveTrain();

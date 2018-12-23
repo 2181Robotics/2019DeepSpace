@@ -21,8 +21,8 @@ public class GroupTest extends CommandGroup {
     // addSequential(new Command2());
     // these will run in order.
 
-    addSequential(new ReplayAuto("/U/left.txt", Robot.joystick, Robot.so));
-    addSequential(new ReplayAuto("/U/right.txt", Robot.joystick, Robot.so));
+    addSequential(new ReplayAuto("/U/left.txt", Robot.joystick));
+    addSequential(new ReplayAuto("/U/right.txt", Robot.joystick));
 
     // To run multiple commands at the same time,
     // use addParallel()

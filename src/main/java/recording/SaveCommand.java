@@ -14,6 +14,7 @@ public class SaveCommand extends Command {
   public SaveCommand(String filename, Saved start, int length) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    setRunWhenDisabled(true);
     this.filename = filename;
     this.start = start;
     this.left = length;

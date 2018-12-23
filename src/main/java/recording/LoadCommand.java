@@ -14,6 +14,7 @@ public class LoadCommand extends Command {
   public LoadCommand(String filename, Saved start) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    setRunWhenDisabled(true);
     this.filename = filename;
     this.last = start;
   }

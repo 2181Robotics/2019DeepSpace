@@ -5,49 +5,63 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package recording;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
-public class AutoReplay extends Command {
-  public String filename;
+public class RecordAuto extends Command {
 
-  public AutoReplay(String filename) {
+  private RecordedJoystick joystick;
+  private SendableChooser<String> choice;
+  private SaveOrganizer group;
+  private SaveCommand sc;
+
+  public RecordAuto(RecordedJoystick joystick, SendableChooser<String> choice, SaveOrganizer group) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.filename = "/home/lvuser/"+filename;
-    Robot.joystick.Load(this.filename);
+    this.joystick = joystick;
+    this.choice = choice;
+    this.group = group;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.joystick.setStart(this.filename);
-    Robot.joystick.startReplay();
+    joystick.startRecord();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    joystick.stepRecord();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.joystick.isDone();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.joystick.stopReplay();
+    joystick.stopRecord();
+    String filepath = choice.getSelected();
+    group.updateReplay(filepath, joystick.start);
+    sc = new SaveCommand(filepath, joystick.start, joystick.total);
+    sc.start();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.joystick.stopReplay();
+    end();
+  }
+
+  public boolean isSaving() {
+    if (sc!=null) return sc.isRunning();
+    else return false;
   }
 }

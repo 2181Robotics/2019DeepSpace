@@ -8,10 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.RecordAuto;
 import frc.robot.commands.SetLiftSpeed;
 import frc.robot.commands.ZuccIn;
 import frc.robot.commands.ZuccOut;
+import recording.RecordAuto;
+import recording.RecordedJoystick;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,6 +22,7 @@ public class OI {
   RecordedJoystick joystick;
 
   JoystickButton record;
+  RecordAuto rc;
 
   public OI() {
     joystick = Robot.joystick;
@@ -32,9 +34,13 @@ public class OI {
     //Recording is done with a regular JoystickButton because a replay could trigger it's own
     //function if it was passed through a RecordedJoystick
     record = new JoystickButton(joystick.getJoystick(), 1);
-    record.toggleWhenPressed(new RecordAuto());
-
+    rc = new RecordAuto(joystick, Robot.to_record, Robot.so);
+    record.toggleWhenPressed(rc);
   }
+
+  public boolean isSaving() {
+    return rc.isSaving();
+  } 
   
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

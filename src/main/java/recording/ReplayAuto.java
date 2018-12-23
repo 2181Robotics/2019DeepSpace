@@ -5,43 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package recording;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 
-public class RecordAuto extends Command {
+public class ReplayAuto extends Command {
 
-  public RecordAuto() {
+  public Saved start;
+  private RecordedJoystick joystick;
+
+  public ReplayAuto(String filename, RecordedJoystick joystick, SaveOrganizer group) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    this.joystick = joystick;
+    group.add(filename, this);
+    start = joystick.makePlaceHolder();
+    LoadCommand lc = new LoadCommand(filename, start);
+    lc.start();
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.joystick.startRecord();
+    joystick.start = start.next;
+    joystick.startReplay();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.joystick.stepRecord();
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return joystick.isDone();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.joystick.stopRecord();
-    String filepath = "/home/lvuser/"+Robot.to_record.getSelected();
-    Robot.joystick.Save(filepath);
+    joystick.stopReplay();
   }
 
   // Called when another command which requires one or more of the same

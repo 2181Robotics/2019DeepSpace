@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
 
 public class GroupTest extends CommandGroup {
   /**
@@ -19,8 +20,8 @@ public class GroupTest extends CommandGroup {
     // addSequential(new Command2());
     // these will run in order.
 
-    addSequential(new AutoReplay("left.txt"));
-    addSequential(new AutoReplay("right.txt"));
+    addSequential(Robot.so.findReplay("/U/left.txt"));
+    addSequential(Robot.so.findReplay("/U/right.txt"));
 
     // To run multiple commands at the same time,
     // use addParallel()

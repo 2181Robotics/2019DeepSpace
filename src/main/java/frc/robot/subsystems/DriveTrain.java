@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.commands.DriveTrainDefault;
+import recording.RecordedJoystick;
 
 /**
  * Add your docs here.
@@ -37,10 +39,14 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new DriveTrainDefault());
   }
 
   public void drive(double y, double x, double spin) {
     drive.driveCartesian(y, x, spin); //mess with values later
+  }
+
+  public void drive(RecordedJoystick j) {
+    drive(j.getRawAxis(4), j.getRawAxis(3), j.getRawAxis(1));
   }
 }

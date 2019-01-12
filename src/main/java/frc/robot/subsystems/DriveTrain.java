@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.DriveTrainDefault;
 import recording.RecordedJoystick;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
  * Add your docs here.
@@ -27,6 +28,9 @@ public class DriveTrain extends Subsystem {
   private final WPI_TalonSRX FL;
   private final WPI_TalonSRX FR;
   private final MecanumDrive drive;
+  public AnalogInput lftLineSensor;
+  public AnalogInput cntrLineSensor;
+  public AnalogInput rghtLineSensor;
 
   public DriveTrain() {
     BL = new WPI_TalonSRX(0); //Temp numbers
@@ -34,6 +38,9 @@ public class DriveTrain extends Subsystem {
     FL = new WPI_TalonSRX(2);
     FR = new WPI_TalonSRX(3);
     drive = new MecanumDrive(FL, BL, FR, BR);
+    lftLineSensor = new AnalogInput(0);
+    cntrLineSensor = new AnalogInput(1);
+    rghtLineSensor = new AnalogInput(2);
   }
 
   @Override
@@ -48,5 +55,20 @@ public class DriveTrain extends Subsystem {
 
   public void drive(RecordedJoystick j) {
     drive(j.getRawAxis(4), j.getRawAxis(3), j.getRawAxis(1));
+  }
+
+  protected int getLeft(int rawLft){
+    int rawLft = lftLineSensor.getValue();
+    return rawLft;
+  }
+
+  protected int getCntr(int rawCntr){
+    int rawCntr = cntrLineSensor.getValue();
+    return rawCntr;
+  }
+
+  protected int getRght(int rawRght){
+    int rawRght = rghtLineSensor.getValue();
+    return rawRght;
   }
 }

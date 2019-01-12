@@ -25,6 +25,9 @@ public class DriveTrainDefault extends Command {
   @Override
   protected void execute() {
     Robot.driveTrain.drive(Robot.joystick);
+    SmartDashboard.putNumber("Left Sensor Output", driveTrain.getLeft);
+    SmartDashboard.putNumber("Center Sensor Output", driveTrain.getRght);
+    SmartDashboard.putNumber("Right Sensor Output", driveTrain.getCntr);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -26,7 +26,6 @@ import recording.RecordedJoystick;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  public static RecordedJoystick joystick;
   public static OI m_oi;
   public static DriveTrain driveTrain;
 
@@ -39,7 +38,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    joystick = new RecordedJoystick(0);
     m_oi = new OI();
     driveTrain = new DriveTrain();
     m_chooser.addDefault("Default Auto", new ExampleCommand());

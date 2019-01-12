@@ -13,7 +13,7 @@ import frc.robot.Robot;
 public class DriveTrainDefault extends Command {
   public DriveTrainDefault() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time

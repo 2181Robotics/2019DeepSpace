@@ -20,42 +20,83 @@ class GripPipeline:
         """initializes all values to presets or None if need to be set
         """
 
-        self.__blur_type = BlurType.Gaussian_Blur
-        self.__blur_radius = 11.71171171171171
+        self.__resize_image_width = 160.0
+        self.__resize_image_height = 120.0
+        self.__resize_image_interpolation = cv2.INTER_CUBIC
+
+        self.resize_image_output = None
+
+        self.__blur_input = self.resize_image_output
+        self.__blur_type = BlurType.Box_Blur
+        self.__blur_radius = 2.003003146197345
 
         self.blur_output = None
 
-        self.__hsv_threshold_input = self.blur_output
-        self.__hsv_threshold_hue = [0.0, 180.0]
-        self.__hsv_threshold_saturation = [0.0, 54.829351535836174]
-        self.__hsv_threshold_value = [0.0, 255.0]
+        self.__hsl_threshold_input = self.blur_output
+        self.__hsl_threshold_hue = [15.107914698209694, 45.87030912015219]
+        self.__hsl_threshold_saturation = [39.74820289680426, 217.28668388653128]
+        self.__hsl_threshold_luminance = [0.0, 255.0]
 
-        self.hsv_threshold_output = None
+        self.hsl_threshold_output = None
 
-        self.__find_blobs_input = self.blur_output
-        self.__find_blobs_min_area = 1
-        self.__find_blobs_circularity = [0.0, 1.0]
-        self.__find_blobs_dark_blobs = False
+        self.__find_contours_input = self.hsl_threshold_output
+        self.__find_contours_external_only = True
 
-        self.find_blobs_output = None
+        self.find_contours_output = None
+
+        self.__filter_contours_contours = self.find_contours_output
+        self.__filter_contours_min_area = 100.0
+        self.__filter_contours_min_perimeter = 0.0
+        self.__filter_contours_min_width = 0
+        self.__filter_contours_max_width = 1000
+        self.__filter_contours_min_height = 0
+        self.__filter_contours_max_height = 1000
+        self.__filter_contours_solidity = [0, 100]
+        self.__filter_contours_max_vertices = 1000000
+        self.__filter_contours_min_vertices = 0
+        self.__filter_contours_min_ratio = 0
+        self.__filter_contours_max_ratio = 1000
+
+        self.filter_contours_output = None
 
 
     def process(self, source0):
         """
         Runs the pipeline and sets all outputs to new values.
         """
+        # Step Resize_Image0:
+        self.__resize_image_input = source0
+        (self.resize_image_output) = self.__resize_image(self.__resize_image_input, self.__resize_image_width, self.__resize_image_height, self.__resize_image_interpolation)
+
         # Step Blur0:
-        self.__blur_input = source0
+        self.__blur_input = self.resize_image_output
         (self.blur_output) = self.__blur(self.__blur_input, self.__blur_type, self.__blur_radius)
 
-        # Step HSV_Threshold0:
-        self.__hsv_threshold_input = self.blur_output
-        (self.hsv_threshold_output) = self.__hsv_threshold(self.__hsv_threshold_input, self.__hsv_threshold_hue, self.__hsv_threshold_saturation, self.__hsv_threshold_value)
+        # Step HSL_Threshold0:
+        self.__hsl_threshold_input = self.blur_output
+        (self.hsl_threshold_output) = self.__hsl_threshold(self.__hsl_threshold_input, self.__hsl_threshold_hue, self.__hsl_threshold_saturation, self.__hsl_threshold_luminance)
 
-        # Step Find_Blobs0:
-        self.__find_blobs_input = self.blur_output
-        (self.find_blobs_output) = self.__find_blobs(self.__find_blobs_input, self.__find_blobs_min_area, self.__find_blobs_circularity, self.__find_blobs_dark_blobs)
+        # Step Find_Contours0:
+        self.__find_contours_input = self.hsl_threshold_output
+        (self.find_contours_output) = self.__find_contours(self.__find_contours_input, self.__find_contours_external_only)
 
+        # Step Filter_Contours0:
+        self.__filter_contours_contours = self.find_contours_output
+        (self.filter_contours_output) = self.__filter_contours(self.__filter_contours_contours, self.__filter_contours_min_area, self.__filter_contours_min_perimeter, self.__filter_contours_min_width, self.__filter_contours_max_width, self.__filter_contours_min_height, self.__filter_contours_max_height, self.__filter_contours_solidity, self.__filter_contours_max_vertices, self.__filter_contours_min_vertices, self.__filter_contours_min_ratio, self.__filter_contours_max_ratio)
+
+
+    @staticmethod
+    def __resize_image(input, width, height, interpolation):
+        """Scales and image to an exact size.
+        Args:
+            input: A numpy.ndarray.
+            Width: The desired width in pixels.
+            Height: The desired height in pixels.
+            interpolation: Opencv enum for the type fo interpolation.
+        Returns:
+            A numpy.ndarray of the new size.
+        """
+        return cv2.resize(input, ((int)(width), (int)(height)), 0, 0, interpolation)
 
     @staticmethod
     def __blur(src, type, radius):
@@ -80,49 +121,83 @@ class GripPipeline:
             return cv2.bilateralFilter(src, -1, round(radius), round(radius))
 
     @staticmethod
-    def __hsv_threshold(input, hue, sat, val):
-        """Segment an image based on hue, saturation, and value ranges.
+    def __hsl_threshold(input, hue, sat, lum):
+        """Segment an image based on hue, saturation, and luminance ranges.
         Args:
             input: A BGR numpy.ndarray.
             hue: A list of two numbers the are the min and max hue.
             sat: A list of two numbers the are the min and max saturation.
-            lum: A list of two numbers the are the min and max value.
+            lum: A list of two numbers the are the min and max luminance.
         Returns:
             A black and white numpy.ndarray.
         """
-        out = cv2.cvtColor(input, cv2.COLOR_BGR2HSV)
-        return cv2.inRange(out, (hue[0], sat[0], val[0]),  (hue[1], sat[1], val[1]))
+        out = cv2.cvtColor(input, cv2.COLOR_BGR2HLS)
+        return cv2.inRange(out, (hue[0], lum[0], sat[0]),  (hue[1], lum[1], sat[1]))
 
     @staticmethod
-    def __find_blobs(input, min_area, circularity, dark_blobs):
-        """Detects groups of pixels in an image.
+    def __find_contours(input, external_only):
+        """Sets the values of pixels in a binary image to their distance to the nearest black pixel.
         Args:
             input: A numpy.ndarray.
-            min_area: The minimum blob size to be found.
-            circularity: The min and max circularity as a list of two numbers.
-            dark_blobs: A boolean. If true looks for black. Otherwise it looks for white.
-        Returns:
-            A list of KeyPoint.
+            external_only: A boolean. If true only external contours are found.
+        Return:
+            A list of numpy.ndarray where each one represents a contour.
         """
-        params = cv2.SimpleBlobDetector_Params()
-        params.filterByColor = 1
-        params.blobColor = (0 if dark_blobs else 255)
-        params.minThreshold = 10
-        params.maxThreshold = 220
-        params.filterByArea = True
-        params.minArea = min_area
-        params.filterByCircularity = True
-        params.minCircularity = circularity[0]
-        params.maxCircularity = circularity[1]
-        params.filterByConvexity = False
-        params.filterByInertia = False
-        detector = cv2.SimpleBlobDetector_create(params)
-        return detector.detect(input)
+        if(external_only):
+            mode = cv2.RETR_EXTERNAL
+        else:
+            mode = cv2.RETR_LIST
+        method = cv2.CHAIN_APPROX_SIMPLE
+        im2, contours, hierarchy =cv2.findContours(input, mode=mode, method=method)
+        return contours
+
+    @staticmethod
+    def __filter_contours(input_contours, min_area, min_perimeter, min_width, max_width,
+                        min_height, max_height, solidity, max_vertex_count, min_vertex_count,
+                        min_ratio, max_ratio):
+        """Filters out contours that do not meet certain criteria.
+        Args:
+            input_contours: Contours as a list of numpy.ndarray.
+            min_area: The minimum area of a contour that will be kept.
+            min_perimeter: The minimum perimeter of a contour that will be kept.
+            min_width: Minimum width of a contour.
+            max_width: MaxWidth maximum width.
+            min_height: Minimum height.
+            max_height: Maximimum height.
+            solidity: The minimum and maximum solidity of a contour.
+            min_vertex_count: Minimum vertex Count of the contours.
+            max_vertex_count: Maximum vertex Count.
+            min_ratio: Minimum ratio of width to height.
+            max_ratio: Maximum ratio of width to height.
+        Returns:
+            Contours as a list of numpy.ndarray.
+        """
+        output = []
+        for contour in input_contours:
+            x,y,w,h = cv2.boundingRect(contour)
+            if (w < min_width or w > max_width):
+                continue
+            if (h < min_height or h > max_height):
+                continue
+            area = cv2.contourArea(contour)
+            if (area < min_area):
+                continue
+            if (cv2.arcLength(contour, True) < min_perimeter):
+                continue
+            hull = cv2.convexHull(contour)
+            solid = 100 * area / cv2.contourArea(hull)
+            if (solid < solidity[0] or solid > solidity[1]):
+                continue
+            if (len(contour) < min_vertex_count or len(contour) > max_vertex_count):
+                continue
+            ratio = (float)(w) / h
+            if (ratio < min_ratio or ratio > max_ratio):
+                continue
+            output.append(contour)
+        return output
 
 
 BlurType = Enum('BlurType', 'Box_Blur Gaussian_Blur Median_Filter Bilateral_Filter')
-
-
 
 
 
@@ -253,6 +328,27 @@ def startCamera(config):
 
     return camera
 
+def makeBoundBox(input_image, contours):
+    width = 3
+    if contours is not None:
+        for contour in contours:
+            x,y,w,h = cv2.boundingRect(contour)
+            for x1 in range(x,x+w):
+                for y1 in range(max(1, y-width),y+width):
+                    try:
+                        input_image[y1-1][x1-1] = [255,0,255]
+                        input_image[y1+h-1][x1-1] = [255,0,255]
+                    except:
+                        pass
+            for y1 in range(y,y+h):
+                for x1 in range(max(1, x-width),x+width):
+                    try:
+                        input_image[y1-1][x1-1] = [255,0,255]
+                        input_image[y1-1][x1+w-1] = [255,0,255]
+                    except:
+                        pass
+    return input_image
+
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         configFile = sys.argv[1]
@@ -277,31 +373,43 @@ if __name__ == "__main__":
         cameras.append(startCamera(cameraConfig))
 
     cs = CameraServer.getInstance()
-    serv = cs.addServer(name="pi_cam_test")
-    serv.setSource(cameras[0])
+    #serv = cs.addServer(name="pi_cam_test")
+    #serv.setSource(cameras[0])
     gp = GripPipeline()
     vid = CvSink("some name")
     vid.setSource(cameras[0])
     vid2 = CvSink("some name 2")
-    vid2.setSource(cameras[0])
-    #gp.process(vid)
-    out = cs.putVideo("meh", 320, 240)
+    vid2.setSource(cameras[1])
+    out = cs.putVideo("meh", 160, 120)
+    thresh_out = cs.putVideo("thresh", 160, 120)
+
+    # putting default values
+    data = dashboard.getEntry("disc overlay")
+    data.forceSetBoolean(False)
+    
     # loop forever
-    #data = dashboard.getEntry("camera")
-    #data.forceSetString("front")
     while True:
         data = dashboard.getEntry("camera")
-        s = numpy.zeros((320, 240, 3), dtype = "uint8")
+        s = numpy.zeros((160, 120, 3), dtype = "uint8")
         if data.getString("") == "front":
             time, s = vid.grabFrame(s)
-            out.putFrame(s)
         else:
             time, s = vid2.grabFrame(s)
-            cv2.flip(s, flipCode=1, dst=s)
-            out.putFrame(s)
-##        s = numpy.zeros((320, 240, 3), dtype = "uint8")
-##        time, s = vid.grabFrame(s)
-##        #gp.process(s)
-##        #print(gp.find_blobs_output)
-##        cv2.flip(s, flipCode=1, dst=s)
-##        out.putFrame(s)
+            #cv2.flip(s, flipCode=1, dst=s)
+        data = dashboard.getEntry("disc overlay")
+        if data.getBoolean(False):
+            try:
+                gp.process(s)
+            except Exception as e:
+                pass
+            s = makeBoundBox(s, gp.filter_contours_output)
+        out.putFrame(s)
+##        s = numpy.zeros((160, 120, 3), dtype = "uint8")
+##        time, s = vid2.grabFrame(s)
+##        try:
+##            gp.process(s)
+##        except Exception as e:
+##            pass
+##        final_img = makeBoundBox(s, gp.filter_contours_output)
+##        #final_img = makeBoundBox(gp.hsl_threshold_output, gp.filter_contours_output)
+##        thresh_out.putFrame(final_img)

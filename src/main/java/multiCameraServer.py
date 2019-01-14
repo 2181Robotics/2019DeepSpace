@@ -333,20 +333,12 @@ def makeBoundBox(input_image, contours):
     if contours is not None:
         for contour in contours:
             x,y,w,h = cv2.boundingRect(contour)
-            for x1 in range(x,x+w):
-                for y1 in range(max(1, y-width),y+width):
-                    try:
-                        input_image[y1-1][x1-1] = [255,0,255]
-                        input_image[y1+h-1][x1-1] = [255,0,255]
-                    except:
-                        pass
-            for y1 in range(y,y+h):
-                for x1 in range(max(1, x-width),x+width):
-                    try:
-                        input_image[y1-1][x1-1] = [255,0,255]
-                        input_image[y1-1][x1+w-1] = [255,0,255]
-                    except:
-                        pass
+            mh,mw,d = input_image.shape
+            input_image[max(0,y-width):min(mh,y+width),max(0,x-width):min(mw,x+w+width)] = [255,0,255]
+            input_image[max(0,y+h-width):min(mh,y+h+width),max(0,x-width):min(mw,x+w+width)] = [255,0,255]
+            input_image[max(0,y):min(mh,y+h),max(0,x-width):min(mw,x+width)] = [255,0,255]
+            input_image[max(0,y):min(mh,y+h),max(0,x+w-width):min(mw,x+w+width)] = [255,0,255]
+            
     return input_image
 
 if __name__ == "__main__":
@@ -379,9 +371,12 @@ if __name__ == "__main__":
     vid = CvSink("some name")
     vid.setSource(cameras[0])
     vid2 = CvSink("some name 2")
-    vid2.setSource(cameras[1])
+    if len(cameras) < 2:
+        vid2.setSource(cameras[0])
+    else:
+        vid2.setSource(cameras[1])
     out = cs.putVideo("meh", 160, 120)
-    thresh_out = cs.putVideo("thresh", 160, 120)
+    #thresh_out = cs.putVideo("thresh", 160, 120)
 
     # putting default values
     data = dashboard.getEntry("disc overlay")

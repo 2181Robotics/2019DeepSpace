@@ -32,9 +32,6 @@ public class AlignFromInfrared extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("Left Sensor Output", rawLft);
-    SmartDashboard.putNumber("Center Sensor Output", rawRght);
-    SmartDashboard.putNumber("Right Sensor Output", rawCntr);
     rawLft = Robot.driveTrain.getLeft();
     rawCntr = Robot.driveTrain.getCntr();
     rawRght = Robot.driveTrain.getRght();
@@ -59,6 +56,13 @@ public class AlignFromInfrared extends Command {
     } else {
       lftSensingWhite = false;
     }
+    //This will tell the driver on Smartdashboard which sensor is seeing the line
+    if (cntrSensingWhite = true){
+      SmartDashboard.putString("Which Sensor is the line under", "The Center Sensor");
+    }  else if (lftSensingWhite = true){
+      SmartDashboard.putString("Which Sensor is the line under", "The Left Sensor");
+    } else if (rghtSensingWhite = true){
+      SmartDashboard.putString("Which Sensor is the line under", "The Right Sensor");    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

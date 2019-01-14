@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem {
   public AnalogInput rghtLineSensor;
 
   public DriveTrain() {
-    BL = new WPI_TalonSRX(0); //Temp numbers
+    BL = new WPI_TalonSRX(0); //Temporary numbers
     BR = new WPI_TalonSRX(1);
     FL = new WPI_TalonSRX(2);
     FR = new WPI_TalonSRX(3);

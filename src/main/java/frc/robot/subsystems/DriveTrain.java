@@ -57,18 +57,18 @@ public class DriveTrain extends Subsystem {
     drive(j.getRawAxis(4), j.getRawAxis(3), j.getRawAxis(1));
   }
 
-  protected int getLeft(int rawLft){
-    int rawLft = lftLineSensor.getValue();
+  protected double getLeft(int rawLft){
+    double rawLft = lftLineSensor.getValue();
     return rawLft;
   }
 
-  protected int getCntr(int rawCntr){
-    int rawCntr = cntrLineSensor.getValue();
+  protected double getCntr(int rawCntr){
+    double rawCntr = cntrLineSensor.getValue();
     return rawCntr;
   }
 
-  protected int getRght(int rawRght){
-    int rawRght = rghtLineSensor.getValue();
+  protected double getRght(int rawRght){
+    double rawRght = rghtLineSensor.getValue();
     return rawRght;
   }
 }

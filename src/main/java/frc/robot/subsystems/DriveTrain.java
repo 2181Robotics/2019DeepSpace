@@ -8,8 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.DriveTrainDefault;
@@ -57,18 +55,15 @@ public class DriveTrain extends Subsystem {
     drive(j.getRawAxis(4), j.getRawAxis(3), j.getRawAxis(1));
   }
 
-  protected double getLeft(int rawLft){
-    double rawLft = lftLineSensor.getValue();
-    return rawLft;
+  public double getLeft(){
+    return lftLineSensor.getValue();
   }
 
-  protected double getCntr(int rawCntr){
-    double rawCntr = cntrLineSensor.getValue();
-    return rawCntr;
+  public double getCntr(){
+    return cntrLineSensor.getValue();
   }
 
-  protected double getRght(int rawRght){
-    double rawRght = rghtLineSensor.getValue();
-    return rawRght;
+  public double getRght(){
+    return rghtLineSensor.getValue();
   }
 }

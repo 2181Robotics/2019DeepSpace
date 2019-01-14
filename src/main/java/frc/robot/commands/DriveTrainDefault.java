@@ -8,7 +8,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainDefault extends Command {
   public DriveTrainDefault() {
@@ -24,10 +26,10 @@ public class DriveTrainDefault extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(Robot.joystick);
-    SmartDashboard.putNumber("Left Sensor Output", driveTrain.getLeft);
-    SmartDashboard.putNumber("Center Sensor Output", driveTrain.getRght);
-    SmartDashboard.putNumber("Right Sensor Output", driveTrain.getCntr);
+    Robot.driveTrain.drive(OI.joystick);
+    SmartDashboard.putNumber("Left Sensor Output", Robot.driveTrain.getLeft());
+    SmartDashboard.putNumber("Center Sensor Output", Robot.driveTrain.getRght());
+    SmartDashboard.putNumber("Right Sensor Output", Robot.driveTrain.getCntr());
   }
 
   // Make this return true when this Command no longer needs to run execute()

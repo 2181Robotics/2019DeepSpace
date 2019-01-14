@@ -8,23 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class AlignFromInfrared extends Command {
+  private boolean lftSensingWhite;
+  private boolean cntrSensingWhite;
+  private boolean rghtSensingWhite;
+  private double rawLft;
+  private double rawCntr;
+  private double rawRght;
   public AlignFromInfrared() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
-    AnalogInput lftLineSensor = new AnalogInput(0);
-    AnalogInput cntrLineSensor = new AnalogInput(1);
-    AnalogInput rghtLineSensor = new AnalogInput(2);
-    boolean lftSensingWhite;
-    boolean cntrSensingWhite;
-    boolean rghtSensingWhite;
-    int rawLft;
-    int rawCntr;
-    int rawRght;
   }
 
   // Called just before this Command runs the first time
@@ -36,9 +32,12 @@ public class AlignFromInfrared extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("Left Sensor Output", Robot.driveTrain.getLeft);
-    SmartDashboard.putNumber("Center Sensor Output", Robot.driveTrain.getRght);
-    SmartDashboard.putNumber("Right Sensor Output", Robot.driveTrain.getCntr);
+    SmartDashboard.putNumber("Left Sensor Output", rawLft);
+    SmartDashboard.putNumber("Center Sensor Output", rawRght);
+    SmartDashboard.putNumber("Right Sensor Output", rawCntr);
+    rawLft = Robot.driveTrain.getLeft();
+    rawCntr = Robot.driveTrain.getCntr();
+    rawRght = Robot.driveTrain.getRght();
     //Reflective ranges TBD
     if (rawLft < 1500) {
       lftSensingWhite = true;

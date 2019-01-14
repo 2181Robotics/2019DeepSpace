@@ -7,19 +7,20 @@
 
 package frc.robot;
 import recording.RecordedJoystick;
+import frc.robot.commands.AlignFromInfrared;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public static RecordedJoystick joystick;
-public class OI {
-  public OI() {
 
+public class OI {
+  public static RecordedJoystick joystick;
+  public OI() {
+    joystick = new RecordedJoystick(0);
+    joystick.whenPressed(3, new AlignFromInfrared()); //Would align bot
   }
-  joystick = new RecordedJoystick(0);
-  Button alignBot = new JoystickButton(0, 3);
-  alignBot.whenPressed(new AlignFromInfrared());
+  
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

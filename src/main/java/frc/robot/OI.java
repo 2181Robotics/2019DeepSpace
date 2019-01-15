@@ -18,7 +18,8 @@ public class OI {
   public static RecordedJoystick joystick;
   public OI() {
     joystick = new RecordedJoystick(0);
-    joystick.whenPressed(3, new AlignFromInfrared()); //Would align bot
+    joystick.whileHeld(3, new AlignFromInfrared());
+    //While one holds the X button while a sensor sees the line, the bot aligns
   }
   
   //// CREATING BUTTONS

@@ -13,6 +13,12 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainDefault extends Command {
+  private boolean lftSensingWhite;
+  private boolean cntrSensingWhite;
+  private boolean rghtSensingWhite;
+  private double rawLft;
+  private double rawCntr;
+  private double rawRght;
   public DriveTrainDefault() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
@@ -27,9 +33,33 @@ public class DriveTrainDefault extends Command {
   @Override
   protected void execute() {
     Robot.driveTrain.drive(OI.joystick);
-    SmartDashboard.putNumber("Left Sensor Output", Robot.driveTrain.getLeft());
-    SmartDashboard.putNumber("Center Sensor Output", Robot.driveTrain.getRght());
-    SmartDashboard.putNumber("Right Sensor Output", Robot.driveTrain.getCntr());
+    rawLft = Robot.driveTrain.getLeft();
+    rawCntr = Robot.driveTrain.getCntr();
+    rawRght = Robot.driveTrain.getRght();
+    //Reflective ranges TBD
+    if (rawLft < 1500) {
+      lftSensingWhite = true;
+      SmartDashboard.putBoolean("Left Sensor Can See Line", lftSensingWhite);
+    } else {
+      lftSensingWhite = false;
+      SmartDashboard.putBoolean("Left Sensor Can See Line", rghtSensingWhite);
+    }
+
+    if (rawCntr < 1500) {
+      cntrSensingWhite = true;
+      SmartDashboard.putBoolean("Center Sensor Can See Line", cntrSensingWhite);
+    } else {
+      lftSensingWhite = false;
+      SmartDashboard.putBoolean("Center Sensor Can See Line", rghtSensingWhite);
+    }
+
+    if (rawRght < 1500) {
+      rghtSensingWhite = true;
+      SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
+    } else {
+      lftSensingWhite = false;
+      SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

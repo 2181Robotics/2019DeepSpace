@@ -205,9 +205,10 @@ BlurType = Enum('BlurType', 'Box_Blur Gaussian_Blur Median_Filter Bilateral_Filt
 import json
 import time
 import sys
+import threading
 
 from cscore import CameraServer, VideoSource, UsbCamera, CvSink
-from networktables import NetworkTablesInstance
+from networktables import NetworkTables
 
 #   JSON format:
 #   {
@@ -329,17 +330,24 @@ def startCamera(config):
     return camera
 
 def makeBoundBox(input_image, contours):
+    """Returns: (output_image, x of first box, y of first box)"""
     width = 3
+    rx = None
+    ry = None
     if contours is not None:
         for contour in contours:
             x,y,w,h = cv2.boundingRect(contour)
+            if rx == None:
+                rx = x
+            if ry == None:
+                ry = y
             mh,mw,d = input_image.shape
             input_image[max(0,y-width):min(mh,y+width),max(0,x-width):min(mw,x+w+width)] = [255,0,255]
             input_image[max(0,y+h-width):min(mh,y+h+width),max(0,x-width):min(mw,x+w+width)] = [255,0,255]
             input_image[max(0,y):min(mh,y+h),max(0,x-width):min(mw,x+width)] = [255,0,255]
             input_image[max(0,y):min(mh,y+h),max(0,x+w-width):min(mw,x+w+width)] = [255,0,255]
             
-    return input_image
+    return (input_image, rx, ry)
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
@@ -350,15 +358,29 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # start NetworkTables
-    ntinst = NetworkTablesInstance.getDefault()
     if server:
         print("Setting up NetworkTables server")
-        ntinst.startServer()
+        NetworkTables.startServer()
     else:
         print("Setting up NetworkTables client for team {}".format(team))
-        ntinst.startClientTeam(team)
+        cond = threading.Condition()
+        notified = [False]
+        def connectionListener(connected, info):
+            print(info, "; Connected=", connected)
+            with cond:
+                notified[0] = True
+                cond.notify()
 
-    dashboard = ntinst.getTable("SmartDashboard")
+        NetworkTables.startClientTeam(team)
+        NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+
+        with cond:
+            print("Waiting")
+            if not notified[0]:
+                cond.wait()
+        
+
+    dashboard = NetworkTables.getTable("SmartDashboard")
     # start cameras
     cameras = []
     for cameraConfig in cameraConfigs:
@@ -379,25 +401,26 @@ if __name__ == "__main__":
     #thresh_out = cs.putVideo("thresh", 160, 120)
 
     # putting default values
-    data = dashboard.getEntry("disc overlay")
-    data.forceSetBoolean(False)
+    dashboard.putBoolean("disc overlay", False)
     
     # loop forever
     while True:
-        data = dashboard.getEntry("camera")
+        data = dashboard.getString("camera", "front")
         s = numpy.zeros((160, 120, 3), dtype = "uint8")
-        if data.getString("") == "front":
+        if data == "front":
             time, s = vid.grabFrame(s)
         else:
             time, s = vid2.grabFrame(s)
             #cv2.flip(s, flipCode=1, dst=s)
-        data = dashboard.getEntry("disc overlay")
-        if data.getBoolean(False):
+        data = dashboard.getBoolean("disc overlay", False)
+        if data == False:
             try:
                 gp.process(s)
             except Exception as e:
                 pass
-            s = makeBoundBox(s, gp.filter_contours_output)
+            (s, x, y) = makeBoundBox(s, gp.filter_contours_output)
+            dashboard.putNumber("disk_x", x)
+            dashboard.putNumber("disk_y", y)
         out.putFrame(s)
 ##        s = numpy.zeros((160, 120, 3), dtype = "uint8")
 ##        time, s = vid2.grabFrame(s)

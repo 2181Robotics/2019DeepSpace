@@ -45,7 +45,7 @@ class GripPipeline:
         self.find_contours_output = None
 
         self.__filter_contours_contours = self.find_contours_output
-        self.__filter_contours_min_area = 100.0
+        self.__filter_contours_min_area = 500.0
         self.__filter_contours_min_perimeter = 0.0
         self.__filter_contours_min_width = 0
         self.__filter_contours_max_width = 1000
@@ -332,15 +332,15 @@ def startCamera(config):
 def makeBoundBox(input_image, contours):
     """Returns: (output_image, x of first box, y of first box)"""
     width = 3
-    rx = None
-    ry = None
+    rx = -1
+    ry = -1
     if contours is not None:
         for contour in contours:
             x,y,w,h = cv2.boundingRect(contour)
-            if rx == None:
-                rx = x
-            if ry == None:
-                ry = y
+            if rx == -1:
+                rx = round(x+w/2)
+            if ry == -1:
+                ry = round(y+h/2)
             mh,mw,d = input_image.shape
             input_image[max(0,y-width):min(mh,y+width),max(0,x-width):min(mw,x+w+width)] = [255,0,255]
             input_image[max(0,y+h-width):min(mh,y+h+width),max(0,x-width):min(mw,x+w+width)] = [255,0,255]
@@ -350,6 +350,7 @@ def makeBoundBox(input_image, contours):
     return (input_image, rx, ry)
 
 if __name__ == "__main__":
+    time.sleep(60)
     if len(sys.argv) >= 2:
         configFile = sys.argv[1]
 
@@ -363,21 +364,20 @@ if __name__ == "__main__":
         NetworkTables.startServer()
     else:
         print("Setting up NetworkTables client for team {}".format(team))
-        cond = threading.Condition()
-        notified = [False]
-        def connectionListener(connected, info):
-            print(info, "; Connected=", connected)
-            with cond:
-                notified[0] = True
-                cond.notify()
-
+##        cond = threading.Condition()
+##        notified = [False]
+##        def connectionListener(connected, info):
+##            with cond:
+##                notified[0] = True
+##                cond.notify()
+##
         NetworkTables.startClientTeam(team)
-        NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
-
-        with cond:
-            print("Waiting")
-            if not notified[0]:
-                cond.wait()
+##        NetworkTables.addConnectionListener(connectionListener, immediateNotify=False)
+##
+##        with cond:
+##            print("Waiting")
+##            if not notified[0]:
+##                cond.wait()
         
 
     dashboard = NetworkTables.getTable("SmartDashboard")
@@ -413,7 +413,7 @@ if __name__ == "__main__":
             time, s = vid2.grabFrame(s)
             #cv2.flip(s, flipCode=1, dst=s)
         data = dashboard.getBoolean("disc overlay", False)
-        if data == False:
+        if data == True:
             try:
                 gp.process(s)
             except Exception as e:

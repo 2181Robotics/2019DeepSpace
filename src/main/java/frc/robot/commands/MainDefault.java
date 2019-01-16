@@ -8,42 +8,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class AlignFromInfrared extends Command {
-  private double rawLft;
-  private double rawCntr;
-  private double rawRght;
-  public AlignFromInfrared() {
+public class MainDefault extends Command {
+  public MainDefault() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveTrain);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    rawLft = Robot.driveTrain.getLeft();
-    rawCntr = Robot.driveTrain.getCntr();
-    rawRght = Robot.driveTrain.getRght();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Reflective ranges TBD
-    if (rawLft < 1500) {
-      Robot.driveTrain.drive(0, -.4, 0);
-    } else if (rawCntr < 1500) {
-      Robot.driveTrain.drive(.4, 0, 0);
-    } else if (rawRght < 1500) {
-      Robot.driveTrain.drive(0, .4, 0);
-    }
+    SmartDashboard.putNumber("Pressure in Gauge", Robot.main.getPressure());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

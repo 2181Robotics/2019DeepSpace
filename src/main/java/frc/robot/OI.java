@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import frc.robot.commands.dubNoidOn;
+import frc.robot.commands.dubNoidOff;
+import frc.robot.commands.noidOn;
+import frc.robot.commands.noidOff;
 import recording.RecordedJoystick;
-import frc.robot.commands.AlignFromInfrared;
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -16,10 +18,14 @@ import frc.robot.commands.AlignFromInfrared;
 
 public class OI {
   public static RecordedJoystick joystick;
+
   public OI() {
     joystick = new RecordedJoystick(0);
-    joystick.whileHeld(3, new AlignFromInfrared());
     //While one holds the X button while a sensor sees the line, the bot aligns
+    joystick.whenPressed(1, new noidOn()); //A
+    joystick.whenPressed(3, new noidOff()); //X
+    joystick.whenPressed(2, new dubNoidOn()); //B
+    joystick.whenPressed(4, new dubNoidOff()); //Y
   }
   
   //// CREATING BUTTONS

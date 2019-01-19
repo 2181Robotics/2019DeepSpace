@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class dubNoidOn extends Command {
   private Solenoid dubNoid;
   public dubNoidOn() {
-    dubNoid = new Solenoid(1, 2);
+    dubNoid = new Solenoid(1, 1);
     // Use requires() here to declare subsystem dependencies
     requires(Robot.main);
   }

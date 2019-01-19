@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CenterOnDisk;
+import frc.robot.commands.DriveTrainDefault;
 import frc.robot.commands.SetLiftSpeed;
 import frc.robot.commands.SwitchCam;
 import frc.robot.commands.ZuccIn;
@@ -32,6 +33,7 @@ public class OI {
     joystick.whileHeld(4, new ZuccOut());
     joystick.whenPressed(2, new SwitchCam());
     joystick.whenPressed(7, new CenterOnDisk());
+    joystick.whenReleased(7, new DriveTrainDefault());
 
     joystick.whileHeld(5, new SetLiftSpeed(.6));
     joystick.whileHeld(6, new SetLiftSpeed(-.6));

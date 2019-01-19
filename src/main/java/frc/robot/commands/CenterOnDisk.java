@@ -14,16 +14,21 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class CenterOnDisk extends Command {
   private static errout eo = new errout();
-  private static PIDController pid = new PIDController(.009, .0005, .003, 0, eo, eo, .070);
+  private static PIDController pid = new PIDController(.005, .0001, .03, 0.3, eo, eo, .070);
 
   public CenterOnDisk() {
-    pid.setAbsoluteTolerance(10);
-    pid.setOutputRange(-.45, .45);
+    pid.setAbsoluteTolerance(5);
+    pid.setOutputRange(-.5, .5);
     pid.setInputRange(0, 160);
     pid.setSetpoint(80);
+    SmartDashboard.putNumber("P", pid.getP());
+    SmartDashboard.putNumber("I", pid.getI());
+    SmartDashboard.putNumber("D", pid.getD());
+    SmartDashboard.putNumber("F", pid.getF());    
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
     //PIDController pid = new PIDController(Kp, Ki, Kd, Kf, source, output);
@@ -32,6 +37,10 @@ public class CenterOnDisk extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    pid.setP(SmartDashboard.getNumber("P", 0));
+    pid.setI(SmartDashboard.getNumber("I", 0));
+    pid.setD(SmartDashboard.getNumber("D", 0));
+    pid.setF(SmartDashboard.getNumber("F", 0));
     SmartDashboard.putBoolean("Centering", true);
     pid.reset();
     pid.enable();
@@ -50,6 +59,7 @@ public class CenterOnDisk extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (pid.onTarget()) Robot.joystick.getJoystick().setRumble(RumbleType.kLeftRumble, 1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -64,6 +74,7 @@ public class CenterOnDisk extends Command {
   protected void end() {
     SmartDashboard.putBoolean("Centering", false);
     pid.disable();
+    Robot.joystick.getJoystick().setRumble(RumbleType.kLeftRumble, 0);
   }
 
   // Called when another command which requires one or more of the same
@@ -94,6 +105,6 @@ class errout implements PIDSource, PIDOutput {
 
   public void pidWrite(double output) {
     SmartDashboard.putNumber("pid_output", output);
-    Robot.driveTrain.driveAuto(0, output);
+    Robot.driveTrain.driveAuto(-Robot.joystick.getRawAxis(5), output+(.2*Math.abs(output)/output));
   }
 }

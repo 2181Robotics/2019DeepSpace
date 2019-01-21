@@ -8,6 +8,7 @@
 package frc.robot;
 import recording.RecordedJoystick;
 import frc.robot.commands.AlignFromInfrared;
+import frc.robot.commands.Climb;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,6 +20,7 @@ public class OI {
   public OI() {
     joystick = new RecordedJoystick(0);
     joystick.whileHeld(3, new AlignFromInfrared());
+    joystick.whenPressed(8, new Climb());
     //While one holds the X button while a sensor sees the line, the bot aligns
   }
   

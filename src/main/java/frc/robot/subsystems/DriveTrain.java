@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.DriveTrainDefault;
 import recording.RecordedJoystick;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * Add your docs here.
@@ -30,6 +32,11 @@ public class DriveTrain extends Subsystem {
   public AnalogInput cntrLineSensor;
   public AnalogInput rghtLineSensor;
 
+  private final Solenoid frontThruster;
+  private final DigitalInput frontLimit;
+  private final Solenoid backThruster;
+  private final DigitalInput backLimit;
+
   public DriveTrain() {
     BL = new WPI_TalonSRX(0); //Temporary numbers
     BR = new WPI_TalonSRX(1);
@@ -39,6 +46,11 @@ public class DriveTrain extends Subsystem {
     lftLineSensor = new AnalogInput(0);
     cntrLineSensor = new AnalogInput(1);
     rghtLineSensor = new AnalogInput(2);
+
+    frontThruster = new Solenoid(1, 0);
+    frontLimit = new DigitalInput(0);
+    backThruster = new Solenoid(1, 1);
+    backLimit = new DigitalInput(1);
   }
 
   @Override
@@ -65,5 +77,21 @@ public class DriveTrain extends Subsystem {
 
   public double getRght(){
     return rghtLineSensor.getValue();
+  }
+
+  public void setFrontThruster(boolean value) {
+    frontThruster.set(value);
+  }
+
+  public void setBackThruster(boolean value) {
+    backThruster.set(value);
+  }
+
+  public boolean getFrontLimit() {
+    return frontLimit.get();
+  }
+
+  public boolean getBackLimit() {
+    return backLimit.get();
   }
 }

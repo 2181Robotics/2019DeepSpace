@@ -9,12 +9,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.Solenoid;
 
 public class noidOn extends Command {
-  private Solenoid noid;
   public noidOn() {
-    noid = new Solenoid(0);
     // Use requires() here to declare subsystem dependencies
     requires(Robot.main);
   }
@@ -27,7 +24,7 @@ public class noidOn extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    noid.set(true);
+    Robot.main.setNoid(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -9,12 +9,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.Solenoid;
 
 public class dubNoidOff extends Command {
-  private Solenoid dubNoid;
   public dubNoidOff() {
-    dubNoid = new Solenoid(1, 1);
     // Use requires() here to declare subsystem dependencies
     requires(Robot.main);
   }
@@ -27,7 +24,7 @@ public class dubNoidOff extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    dubNoid.set(false);
+    Robot.main.setDubNoid(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

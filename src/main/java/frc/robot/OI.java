@@ -8,7 +8,11 @@
 package frc.robot;
 import recording.RecordedJoystick;
 import frc.robot.commands.AlignFromInfrared;
+import frc.robot.commands.ClawClose;
+import frc.robot.commands.ClawOpen;
 import frc.robot.commands.Climb;
+import frc.robot.commands.FlippyRotMotorBack;
+import frc.robot.commands.FlippyRotMotorForward;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,11 +21,15 @@ import frc.robot.commands.Climb;
 
 public class OI {
   public static RecordedJoystick joystick;
-  public OI() {
+  public OI() { //All buttons subject to change
     joystick = new RecordedJoystick(0);
-    joystick.whileHeld(3, new AlignFromInfrared());
+    joystick.whenPressed(1, new ClawOpen());
+    joystick.whenPressed(2, new ClawClose());
+    joystick.whileHeld(3, new AlignFromInfrared()); //While one holds the X button while a sensor sees the line, the bot aligns
+    joystick.whileHeld(5, new FlippyRotMotorBack());
+    joystick.whileHeld(6, new FlippyRotMotorForward());
     joystick.whenPressed(8, new Climb());
-    //While one holds the X button while a sensor sees the line, the bot aligns
+    
   }
   
   //// CREATING BUTTONS

@@ -35,8 +35,11 @@ public CaptainKirk(){
 
   public void flippyRotMotorSet(double direction){
     flippyRotMotor.set(ControlMode.PercentOutput, direction);
-    /*Make it so you can set the flippRotMotor
-    to a certain position that is either ground, vertical, or back
-    This will be figured out later */
+    /*Maybe make it so you can set the flippRotMotor
+    to a certain position that is either ground, vertical, or back later */
+  }
+
+  public void clawSet(boolean on){
+    clawNoid.set(on);
   }
 }

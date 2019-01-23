@@ -7,11 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FlippyRotMotorBack extends Command {
-  public FlippyRotMotorBack() {
+import edu.wpi.first.wpilibj.command.TimedCommand;
+
+/**
+ * Add your docs here.
+ */
+public class Flippy2TheGrnd extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public Flippy2TheGrnd(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
     requires(Robot.captainKirk);
   }
@@ -27,13 +35,7 @@ public class FlippyRotMotorBack extends Command {
     Robot.captainKirk.flippyRotMotorSet(-1);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
     Robot.captainKirk.flippyRotMotorSet(0);

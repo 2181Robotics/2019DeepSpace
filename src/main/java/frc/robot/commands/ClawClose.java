@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FlippyRotMotorBack extends Command {
-  public FlippyRotMotorBack() {
+public class ClawClose extends Command {
+  public ClawClose() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.captainKirk);
   }
@@ -24,7 +24,7 @@ public class FlippyRotMotorBack extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.flippyRotMotorSet(-1);
+    Robot.captainKirk.clawSet(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,13 +36,13 @@ public class FlippyRotMotorBack extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.captainKirk.flippyRotMotorSet(0);
+    Robot.captainKirk.clawSet(false);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.captainKirk.flippyRotMotorSet(0);
+    Robot.captainKirk.clawSet(false);
   }
 }

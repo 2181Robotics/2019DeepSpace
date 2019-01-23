@@ -8,10 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
 
 public class PickItUp extends CommandGroup {
   public PickItUp() {
-    addSequential(new FlippyRotMotorForward());
+    //Times subject to change
+    addSequential(new Flippy2TheGrnd(2));
+    addSequential(new FlippyBackUp(2));
   }
 }

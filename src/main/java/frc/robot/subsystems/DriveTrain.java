@@ -7,11 +7,13 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.DriveTrainDefault;
+
 import recording.RecordedJoystick;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -22,12 +24,13 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+  private final MecanumDrive drive;
 
   private final WPI_TalonSRX BL;
   private final WPI_TalonSRX BR;
   private final WPI_TalonSRX FL;
   private final WPI_TalonSRX FR;
-  private final MecanumDrive drive;
+  
   public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;
   public AnalogInput rghtLineSensor;
@@ -38,19 +41,19 @@ public class DriveTrain extends Subsystem {
   private final DigitalInput backLimit;
 
   public DriveTrain() {
-    BL = new WPI_TalonSRX(0); //Temporary numbers
-    BR = new WPI_TalonSRX(1);
-    FL = new WPI_TalonSRX(2);
-    FR = new WPI_TalonSRX(3);
+    BL = RobotMap.bL; //Temporary numbers
+    BR = RobotMap.bR;
+    FL = RobotMap.fL;
+    FR = RobotMap.fR;
     drive = new MecanumDrive(FL, BL, FR, BR);
-    lftLineSensor = new AnalogInput(0);
-    cntrLineSensor = new AnalogInput(1);
-    rghtLineSensor = new AnalogInput(2);
+    lftLineSensor = RobotMap.LftLineSensor;
+    cntrLineSensor = RobotMap.CntrLineSensor;
+    rghtLineSensor = RobotMap.RghtLineSensor;
 
-    frontThruster = new Solenoid(1, 0);
-    frontLimit = new DigitalInput(0);
-    backThruster = new Solenoid(1, 1);
-    backLimit = new DigitalInput(1);
+    frontThruster = RobotMap.FrontThruster;
+    frontLimit = RobotMap.FrontLimit;
+    backThruster = RobotMap.BackThruster;
+    backLimit = RobotMap.BackLimit;
   }
 
   @Override

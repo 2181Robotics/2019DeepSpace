@@ -7,12 +7,14 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
+
 
 /**
  * Add your docs here.
@@ -26,18 +28,17 @@ public class Lift extends Subsystem {
   private DigitalInput middle;
   private DigitalInput top;
 
-  private VictorSPX motor;
+  private VictorSPX liftMotor;
 
   private Solenoid stickyDoo;
 
   public Lift() {
-    bottom = new DigitalInput(0);
-    middle = new DigitalInput(1);
-    top = new DigitalInput(2);
+    bottom = RobotMap.Bottom;
+    middle = RobotMap.Middle;
+    top = RobotMap.Top;
 
-    motor = new VictorSPX(7);
-
-    stickyDoo = new Solenoid(1, 1);
+    liftMotor = RobotMap.LiftMotor;
+    stickyDoo = RobotMap.StickyDoo;
   }
 
   @Override
@@ -47,7 +48,7 @@ public class Lift extends Subsystem {
   }
 
   public void setSpeed(double speed) { // make it so positive is up
-    motor.set(ControlMode.PercentOutput, speed);
+    liftMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public boolean get(String choice) {

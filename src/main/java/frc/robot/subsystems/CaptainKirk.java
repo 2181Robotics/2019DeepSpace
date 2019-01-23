@@ -9,9 +9,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.CaptainKirkDefault;
+import frc.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
  
@@ -20,12 +20,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
  */
 public class CaptainKirk extends Subsystem {
   private final Solenoid clawNoid;
-  private final TalonSRX flippyRotMotor;
+  private final WPI_TalonSRX flippyRotMotor;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 public CaptainKirk(){
-  clawNoid = new Solenoid(1, 2);
-  flippyRotMotor = new TalonSRX(6);//# May be changed later
+  clawNoid = RobotMap.ClawNoid;
+  flippyRotMotor = RobotMap.FlippyRotMotor;
 }
   @Override
   public void initDefaultCommand() {

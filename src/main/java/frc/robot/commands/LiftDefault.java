@@ -25,8 +25,8 @@ public class LiftDefault extends Command {
   @Override
   protected void execute() {
     Robot.lift.setLiftSpeed(0);
-    Robot.lift.setExtended(false);
-    Robot.lift.setOutta(false);
+    Robot.lift.setStem(false);
+    Robot.lift.setBud(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

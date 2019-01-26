@@ -23,18 +23,18 @@ public class RobotMap {
   public static Solenoid FrontThruster = new Solenoid(1, 0);
   public static Solenoid BackThruster = new Solenoid(1, 1);
   public static Solenoid ClawNoid = new Solenoid(1, 2);
-  public static Solenoid StickyDoo = new Solenoid(1, 3);
-  public static Solenoid OuttaHyah = new Solenoid(1, 4);
+  public static Solenoid Stem = new Solenoid(1, 3);
+  public static Solenoid Bud = new Solenoid(1, 4);
 
   //Talons
-  public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(6);//# May be changed later
+  public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(6);//# May be changed later, could use bosch motor
 
-  //Victors
+  //Victors, go on the PWM
   public static VictorSP bL = new VictorSP(0);
   public static VictorSP bR = new VictorSP(1);
   public static VictorSP fL = new VictorSP(2);
   public static VictorSP fR = new VictorSP(3);
-  public static VictorSP LiftMotor = new VictorSP(7);
+  public static VictorSP LiftMotor = new VictorSP(4);
   
   //Limit Switches
   public static DigitalInput FrontLimit = new DigitalInput(0);
@@ -42,6 +42,7 @@ public class RobotMap {
   public static DigitalInput Bottom = new DigitalInput(2);
   public static DigitalInput Middle = new DigitalInput(3);
   public static DigitalInput Top = new DigitalInput(4);
+  //MAYBE public static DigitalInput Overshoot = new DigitalInput(5);
 
   //Line Sensors
   public static AnalogInput LftLineSensor = new AnalogInput(0);

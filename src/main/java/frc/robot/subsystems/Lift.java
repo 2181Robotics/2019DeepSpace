@@ -30,8 +30,8 @@ public class Lift extends Subsystem {
 
   private VictorSP liftMotor;
 
-  private Solenoid stickyDoo;
-  private Solenoid outtaHyah;
+  private Solenoid stem;
+  private Solenoid bud;
 
   public Lift() {
     bottom = RobotMap.Bottom;
@@ -39,8 +39,8 @@ public class Lift extends Subsystem {
     top = RobotMap.Top;
 
     liftMotor = RobotMap.LiftMotor;
-    stickyDoo = RobotMap.StickyDoo;
-    outtaHyah = RobotMap.OuttaHyah;
+    stem = RobotMap.Stem;
+    bud = RobotMap.Bud;
   }
 
   @Override
@@ -64,11 +64,12 @@ public class Lift extends Subsystem {
     }
   }
 
-  public void setExtended(boolean on) {
-    stickyDoo.set(on);
+  public void setStem(boolean pushed){
+  stem.set(pushed);
   }
 
-  public void setOutta(boolean pushed){
-  outtaHyah.set(pushed);
-  }
+  public void setBud(boolean flowering){
+    bud.set(flowering);
+    }
+  
 }

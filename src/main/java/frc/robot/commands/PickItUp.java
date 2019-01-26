@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PickItUp extends CommandGroup {
   public PickItUp() {
     //Times subject to change
-    //Vision finds hatch on groun
+    //Vision finds hatch on ground
     addSequential(new Flippy2TheGrnd(2));
-    addSequential(new ClawOpen());
+    addSequential(new ClawControl());
     addSequential(new FlippyBackUp(2));
   }
 }

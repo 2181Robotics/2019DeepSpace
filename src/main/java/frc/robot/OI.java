@@ -7,12 +7,6 @@
 
 package frc.robot;
 import recording.RecordedJoystick;
-import frc.robot.commands.AlignFromInfrared;
-import frc.robot.commands.ClawOpen;
-import frc.robot.commands.Climb;
-import frc.robot.commands.ExtendOutta;
-import frc.robot.commands.FlippyRotMotorBack;
-import frc.robot.commands.FlippyRotMotorForward;
 import frc.robot.commands.*;
 
 /**
@@ -26,19 +20,20 @@ public class OI {
   public OI() { //All buttons subject to change
     joystick = new RecordedJoystick(0);
     buttonBox = new RecordedJoystick(1);
-    joystick.whenPressed(1, new ClawOpen());//A
-    joystick.whenPressed(2, new ClawClose());//B
-    //Put in command for the lift mechanism, TBD - joystick.whileHeld(3, new ());//X
-    buttonBox.whileHeld(4, new ExtendOutta());//Y
+    joystick.toggleWhenPressed(1, new ExtendStem());//A
+    joystick.toggleWhenPressed(2, new BudFlowering());//B
+    joystick.toggleWhenPressed(3, new ClawControl());//X
+    //joystick.whileHeld(4, new ());//Y
     joystick.whileHeld(5, new FlippyRotMotorBack());//LB - back is out of frame
     joystick.whileHeld(6, new FlippyRotMotorForward());//RB - forward is into frame
     joystick.whenPressed(8, new Climb());//Start button
 
-    buttonBox.whenPressed(1, new Deliver("low"));//SUBJECT
-    buttonBox.whenPressed(2, new Deliver("middle"));//TO
-    buttonBox.whenPressed(3, new Deliver("top"));//CHANGE
-    buttonBox.whenPressed(4, new AlignFromInfrared());
-    buttonBox.whenPressed(5, new PickItUp());//This is assuming we have a claw mechanism
+    buttonBox.whenPressed(1, new Deliver("cargo"));//THESE
+    buttonBox.whenPressed(2, new Deliver("low"));//SUBJECT
+    buttonBox.whenPressed(3, new Deliver("middle"));//TO
+    buttonBox.whenPressed(4, new Deliver("top"));//CHANGE
+    buttonBox.whenPressed(5, new AlignFromInfrared());
+    buttonBox.whenPressed(6, new PickItUp());//This is assuming we have a claw mechanism
 
   }
 }

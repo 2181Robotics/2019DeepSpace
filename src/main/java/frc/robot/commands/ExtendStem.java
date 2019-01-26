@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ExtendOutta extends Command {
-  public ExtendOutta() {
+public class ExtendStem extends Command {
+  public ExtendStem() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
   }
@@ -24,7 +24,7 @@ public class ExtendOutta extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setOutta(true);
+    Robot.lift.setStem(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,12 +36,12 @@ public class ExtendOutta extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.lift.setOutta(false);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.lift.setStem(false);
   }
 }

@@ -23,7 +23,7 @@ public class Deliver extends CommandGroup {
 
   public Deliver(String level) {
     addSequential(new Prepare(level));
-    addSequential(new Place());
+    addSequential(new ExtendStem());
     addSequential(new GoTo("low"));
     // Add Commands here:
     // e.g. addSequential(new Command1());

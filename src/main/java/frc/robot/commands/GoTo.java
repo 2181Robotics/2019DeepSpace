@@ -28,9 +28,9 @@ public class GoTo extends Command {
   @Override
   protected void execute() {
     if (choice.equals("low")) {
-      Robot.lift.setSpeed(-.5);
+      Robot.lift.setLiftSpeed(-.5);
     } else {
-      Robot.lift.setSpeed(.5);
+      Robot.lift.setLiftSpeed(.5);
     }
   }
 
@@ -43,7 +43,7 @@ public class GoTo extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.lift.setSpeed(0);
+    Robot.lift.setLiftSpeed(0);
   }
 
   // Called when another command which requires one or more of the same

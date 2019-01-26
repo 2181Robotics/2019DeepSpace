@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.VictorSP;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -24,16 +24,17 @@ public class RobotMap {
   public static Solenoid BackThruster = new Solenoid(1, 1);
   public static Solenoid ClawNoid = new Solenoid(1, 2);
   public static Solenoid StickyDoo = new Solenoid(1, 3);
+  public static Solenoid OuttaHyah = new Solenoid(1, 4);
 
   //Talons
-  public static WPI_TalonSRX bL = new WPI_TalonSRX(0);
-  public static WPI_TalonSRX bR = new WPI_TalonSRX(1);
-  public static WPI_TalonSRX fL = new WPI_TalonSRX(2);
-  public static WPI_TalonSRX fR = new WPI_TalonSRX(3);
   public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(6);//# May be changed later
 
   //Victors
-  public static VictorSPX LiftMotor = new VictorSPX(7);
+  public static VictorSP bL = new VictorSP(0);
+  public static VictorSP bR = new VictorSP(1);
+  public static VictorSP fL = new VictorSP(2);
+  public static VictorSP fR = new VictorSP(3);
+  public static VictorSP LiftMotor = new VictorSP(7);
   
   //Limit Switches
   public static DigitalInput FrontLimit = new DigitalInput(0);

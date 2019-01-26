@@ -10,10 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ClawClose extends Command {
-  public ClawClose() {
+public class ExtendOutta extends Command {
+  public ExtendOutta() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.captainKirk);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
@@ -24,7 +24,7 @@ public class ClawClose extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.clawSet(false);
+    Robot.lift.setOutta(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,13 +36,12 @@ public class ClawClose extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.captainKirk.clawSet(false);
+    Robot.lift.setOutta(false);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.captainKirk.clawSet(false);
   }
 }

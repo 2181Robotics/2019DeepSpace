@@ -24,7 +24,7 @@ public class FlippyRotMotorForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.flippyRotMotorSet(1);
+    Robot.captainKirk.flippyRotMotorSet(.75);
   }
 
   // Make this return true when this Command no longer needs to run execute()

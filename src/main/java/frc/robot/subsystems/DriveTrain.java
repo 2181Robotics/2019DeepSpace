@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.DriveTrainDefault;
 
 import recording.RecordedJoystick;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.VictorSP;
 
 /**
  * Add your docs here.
@@ -26,10 +26,10 @@ public class DriveTrain extends Subsystem {
   // here. Call these from Commands.
   private final MecanumDrive drive;
 
-  private final WPI_TalonSRX BL;
-  private final WPI_TalonSRX BR;
-  private final WPI_TalonSRX FL;
-  private final WPI_TalonSRX FR;
+  private final VictorSP BL;
+  private final VictorSP BR;
+  private final VictorSP FL;
+  private final VictorSP FR;
   
   public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;

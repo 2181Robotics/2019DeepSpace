@@ -9,11 +9,11 @@ package frc.robot.subsystems;
 
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.LiftDefault;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.VictorSP;
 
 
 /**
@@ -28,9 +28,10 @@ public class Lift extends Subsystem {
   private DigitalInput middle;
   private DigitalInput top;
 
-  private VictorSPX liftMotor;
+  private VictorSP liftMotor;
 
   private Solenoid stickyDoo;
+  private Solenoid outtaHyah;
 
   public Lift() {
     bottom = RobotMap.Bottom;
@@ -39,16 +40,16 @@ public class Lift extends Subsystem {
 
     liftMotor = RobotMap.LiftMotor;
     stickyDoo = RobotMap.StickyDoo;
+    outtaHyah = RobotMap.OuttaHyah;
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new LiftDefault());
   }
 
-  public void setSpeed(double speed) { // make it so positive is up
-    liftMotor.set(ControlMode.PercentOutput, speed);
+  public void setLiftSpeed(double speed) { // make it so positive is up
+    liftMotor.setSpeed(speed);
   }
 
   public boolean get(String choice) {
@@ -65,5 +66,9 @@ public class Lift extends Subsystem {
 
   public void setExtended(boolean on) {
     stickyDoo.set(on);
+  }
+
+  public void setOutta(boolean pushed){
+  outtaHyah.set(pushed);
   }
 }

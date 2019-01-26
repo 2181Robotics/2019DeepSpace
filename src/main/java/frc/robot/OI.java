@@ -13,6 +13,7 @@ import frc.robot.commands.Climb;
 import frc.robot.commands.ExtendOutta;
 import frc.robot.commands.FlippyRotMotorBack;
 import frc.robot.commands.FlippyRotMotorForward;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,14 +22,23 @@ import frc.robot.commands.FlippyRotMotorForward;
 
 public class OI {
   public static RecordedJoystick joystick;
+  public static RecordedJoystick buttonBox;
   public OI() { //All buttons subject to change
     joystick = new RecordedJoystick(0);
-    joystick.whileHeld(1, new ClawOpen());//A
-    joystick.whileHeld(2, new ExtendOutta());//B
-    joystick.whileHeld(3, new AlignFromInfrared());//X, while sensor sees line, bot aligns
-    joystick.whileHeld(5, new FlippyRotMotorBack());//LB
-    joystick.whileHeld(6, new FlippyRotMotorForward());//RB
+    buttonBox = new RecordedJoystick(1);
+    joystick.whenPressed(1, new ClawOpen());//A
+    joystick.whenPressed(2, new ClawClose());//B
+    //Put in command for the lift mechanism, TBD - joystick.whileHeld(3, new ());//X
+    buttonBox.whileHeld(4, new ExtendOutta());//Y
+    joystick.whileHeld(5, new FlippyRotMotorBack());//LB - back is out of frame
+    joystick.whileHeld(6, new FlippyRotMotorForward());//RB - forward is into frame
     joystick.whenPressed(8, new Climb());//Start button
-    
+
+    buttonBox.whenPressed(1, new Deliver("low"));//SUBJECT
+    buttonBox.whenPressed(2, new Deliver("middle"));//TO
+    buttonBox.whenPressed(3, new Deliver("top"));//CHANGE
+    buttonBox.whenPressed(4, new AlignFromInfrared());
+    buttonBox.whenPressed(5, new PickItUp());//This is assuming we have a claw mechanism
+
   }
 }

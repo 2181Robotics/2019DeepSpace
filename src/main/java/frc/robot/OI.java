@@ -27,6 +27,8 @@ public class OI {
     joystick.whileHeld(5, new FlippyRotMotorBack());//LB - back is out of frame
     joystick.whileHeld(6, new FlippyRotMotorForward());//RB - forward is into frame
     joystick.whenPressed(8, new Climb());//Start button
+    joystick.whenPressed(7, new TapeAlign());
+    joystick.whenReleased(7, new DriveTrainDefault());
 
     buttonBox.whenPressed(1, new Deliver("cargo"));//THESE
     buttonBox.whenPressed(2, new Deliver("low"));//SUBJECT

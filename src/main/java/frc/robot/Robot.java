@@ -40,10 +40,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
     driveTrain = new DriveTrain();
     captainKirk = new CaptainKirk();
     lift = new Lift();
+    m_oi = new OI();
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }

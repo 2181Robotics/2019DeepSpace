@@ -27,7 +27,7 @@ public class RobotMap {
   public static Solenoid Bud = new Solenoid(1, 4);
 
   //Talons
-  public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(6);//# May be changed later, could use bosch motor
+  public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(7);//# May be changed later, could use bosch motor
 
   //Victors, go on the PWM
   public static VictorSP bL = new VictorSP(0);

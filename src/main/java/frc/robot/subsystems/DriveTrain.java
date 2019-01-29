@@ -8,11 +8,18 @@
 package frc.robot.subsystems;
 
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveTrainDefault;
 
 import recording.RecordedJoystick;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -21,15 +28,19 @@ import edu.wpi.first.wpilibj.VictorSP;
 /**
  * Add your docs here.
  */
-public class DriveTrain extends Subsystem {
+public class DriveTrain extends PIDSubsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final MecanumDrive drive;
+  private final DifferentialDrive drive2;
 
   private final VictorSP BL;
   private final VictorSP BR;
   private final VictorSP FL;
   private final VictorSP FR;
+
+  private final WPI_TalonSRX L = new WPI_TalonSRX(5);
+  private final WPI_TalonSRX R = new WPI_TalonSRX(6);
   
   public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;
@@ -41,11 +52,17 @@ public class DriveTrain extends Subsystem {
   private final DigitalInput backLimit;
 
   public DriveTrain() {
-    BL = RobotMap.bL; //Temporary numbers
+    super("Drivetrain", .005, .0001, .03); //PID values
+    setAbsoluteTolerance(10);
+    setInputRange(0, 160);
+    setOutputRange(-.5, .5);
+
+    BL = RobotMap.bL;
     BR = RobotMap.bR;
     FL = RobotMap.fL;
     FR = RobotMap.fR;
     drive = new MecanumDrive(FL, BL, FR, BR);
+    drive2 = new DifferentialDrive(L, R);
     lftLineSensor = RobotMap.LftLineSensor;
     cntrLineSensor = RobotMap.CntrLineSensor;
     rghtLineSensor = RobotMap.RghtLineSensor;
@@ -57,17 +74,28 @@ public class DriveTrain extends Subsystem {
   }
 
   @Override
+  protected double returnPIDInput() {
+    return SmartDashboard.getNumber("tape_x", this.getSetpoint());
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    drive(0, 0, -output);
+  }
+
+  @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new DriveTrainDefault());
   }
 
   public void drive(double y, double x, double spin) {
-    drive.driveCartesian(y, x, spin); //mess with values later
+    //drive.driveCartesian(y, x, spin); //mess with values later
+    drive2.arcadeDrive(-y, -spin);
   }
 
   public void drive(RecordedJoystick j) {
-    drive(j.getRawAxis(4), j.getRawAxis(3), j.getRawAxis(1));
+    drive(-j.getRawAxis(1), j.getRawAxis(0), j.getRawAxis(4));
   }
 
   public double getLeft(){

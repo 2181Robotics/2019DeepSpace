@@ -14,7 +14,7 @@ public class WallGrab extends CommandGroup {
    * Add your docs here.
    */
   public WallGrab() {
-    addSequential(new TapeAlign());
+    addSequential(new VisionTapeAlign());
     addSequential(new BudFlowering());
     // Add Commands here:
     // e.g. addSequential(new Command1());

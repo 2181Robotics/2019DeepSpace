@@ -9,11 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class TapeAlign extends CommandGroup {
+public class VisionTapeAlign extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public TapeAlign() {
+  public VisionTapeAlign() {
     addSequential(new AngleSet(true));
     addSequential(new DriveToLine());
     // Add Commands here:

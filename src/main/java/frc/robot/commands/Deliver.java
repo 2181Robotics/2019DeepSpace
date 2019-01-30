@@ -17,7 +17,7 @@ public class Deliver extends CommandGroup {
   private class Prepare extends CommandGroup {
     public Prepare(String level) {
       addParallel(new GoTo(level));
-      addParallel(new TapeAlign());   
+      addParallel(new VisionTapeAlign());   
     }
   }
 

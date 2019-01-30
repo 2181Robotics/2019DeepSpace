@@ -9,22 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class Deliver extends CommandGroup {
+public class WallGrab extends CommandGroup {
   /**
    * Add your docs here.
    */
-
-  private class Prepare extends CommandGroup {
-    public Prepare(String level) {
-      addParallel(new GoTo(level));
-      addParallel(new TapeAlign());   
-    }
-  }
-
-  public Deliver(String level) {
-    addSequential(new Prepare(level));
-    addSequential(new ExtendStem());
-    addSequential(new GoTo("low"));
+  public WallGrab() {
+    addSequential(new TapeAlign());
+    addSequential(new BudFlowering());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

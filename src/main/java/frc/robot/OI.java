@@ -18,24 +18,23 @@ public class OI {
   public static RecordedJoystick joystick;
   public static RecordedJoystick buttonBox;
   public OI() { //All buttons subject to change
+
+    //MAIN BUTTON LAYOUT - DO NOT CHANGE - TESTING LAYOUT BELOW
     joystick = new RecordedJoystick(0);
     buttonBox = new RecordedJoystick(1);
-    joystick.toggleWhenPressed(1, new ExtendStem());//A
-    joystick.toggleWhenPressed(2, new BudFlowering());//B
-    joystick.toggleWhenPressed(3, new ClawControl());//X
-    //joystick.whileHeld(4, new ());//Y
-    joystick.whileHeld(5, new FlippyRotMotorBack());//LB - back is out of frame
-    joystick.whileHeld(6, new FlippyRotMotorForward());//RB - forward is into frame
-    joystick.whenPressed(8, new Climb());//Start button
-    joystick.whenPressed(7, new TapeAlign());
-    joystick.whenReleased(7, new DriveTrainDefault());
+    joystick.toggleWhenPressed(1, new WallGrab());//A
+    joystick.toggleWhenPressed(2, new PickItUp());//B
+    joystick.toggleWhenPressed(3, new BudFlowering());//X
+    joystick.whileHeld(4, new ExtendStem());//Y
+    joystick.whileHeld(5, new SetLift(.6));//LB
+    joystick.whileHeld(6, new SetLift(-.6));//RB
 
     buttonBox.whenPressed(1, new Deliver("cargo"));//THESE
     buttonBox.whenPressed(2, new Deliver("low"));//SUBJECT
     buttonBox.whenPressed(3, new Deliver("middle"));//TO
     buttonBox.whenPressed(4, new Deliver("top"));//CHANGE
-    buttonBox.whenPressed(5, new AlignFromInfrared());
-    buttonBox.whenPressed(6, new PickItUp());//This is assuming we have a claw mechanism
+    buttonBox.whenPressed(5, new Climb());
+    buttonBox.whenPressed(6, new InterruptAll());//This is assuming we have a claw mechanism
 
   }
 }

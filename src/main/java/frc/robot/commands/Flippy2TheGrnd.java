@@ -32,7 +32,7 @@ public class Flippy2TheGrnd extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.flippyRotMotorSet(-.75);
+    Robot.captainKirk.flippyRotMotorSet(-.6);
   }
 
   // Called once after timeout

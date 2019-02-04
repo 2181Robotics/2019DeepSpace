@@ -10,11 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class AlignFromInfrared extends Command {
+public class AlignFromIr extends Command {
   private double rawLft;
   private double rawCntr;
   private double rawRght;
-  public AlignFromInfrared() {
+  public AlignFromIr() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
   }

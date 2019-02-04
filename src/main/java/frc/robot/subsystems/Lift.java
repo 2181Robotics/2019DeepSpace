@@ -23,10 +23,10 @@ public class Lift extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-
-  private DigitalInput bottom;
-  private DigitalInput middle;
-  private DigitalInput top;
+  //These are limit switches
+  private DigitalInput bottomLim;
+  private DigitalInput middleLim;
+  private DigitalInput topLim;
 
   private VictorSP liftMotor;
 
@@ -34,9 +34,9 @@ public class Lift extends Subsystem {
   private Solenoid bud;
 
   public Lift() {
-    bottom = RobotMap.Bottom;
-    middle = RobotMap.Middle;
-    top = RobotMap.Top;
+    bottomLim = RobotMap.Bottom;
+    middleLim = RobotMap.Middle;
+    topLim = RobotMap.Top;
 
     liftMotor = RobotMap.LiftMotor;
     stem = RobotMap.Stem;
@@ -54,11 +54,11 @@ public class Lift extends Subsystem {
 
   public boolean get(String choice) {
     if (choice.equals("low")) {
-      return bottom.get();
+      return bottomLim.get();
     } else if (choice.equals("mid")) {
-      return middle.get();
+      return middleLim.get();
     } else if (choice.equals("high")) {
-      return top.get();
+      return topLim.get();
     } else {
       return false;
     }

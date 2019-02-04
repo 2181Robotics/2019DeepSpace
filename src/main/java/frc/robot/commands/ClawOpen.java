@@ -10,13 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class GoTo extends Command {
-  private String choice;
-
-  public GoTo(String choice) {
-    this.choice = choice;
+public class ClawOpen extends Command {
+  public ClawOpen() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.lift);
+    requires(Robot.captainKirk);
   }
 
   // Called just before this Command runs the first time
@@ -27,29 +24,23 @@ public class GoTo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (choice.equals("low")) {
-      Robot.lift.setLiftSpeed(-.5);
-    } else {
-      Robot.lift.setLiftSpeed(.5);
-    }
+    Robot.captainKirk.clawSet(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.lift.get(choice);
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.lift.setLiftSpeed(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

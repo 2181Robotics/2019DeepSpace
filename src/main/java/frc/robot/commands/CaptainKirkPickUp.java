@@ -9,12 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class PickItUp extends CommandGroup {
-  public PickItUp() {
+public class CaptainKirkPickUp extends CommandGroup {
+  public CaptainKirkPickUp() {
     //Times subject to change
-    //Vision finds hatch on ground
+    //Vision finds hatch on ground?
     addSequential(new Flippy2TheGrnd(2));
-    addSequential(new ClawControl());
+    addSequential(new ClawOpen());
     addSequential(new FlippyBackUp(2));
   }
 }

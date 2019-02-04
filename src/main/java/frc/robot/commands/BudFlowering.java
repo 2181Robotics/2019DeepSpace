@@ -12,6 +12,7 @@ import frc.robot.Robot;
 
 public class BudFlowering extends Command {
   public BudFlowering() {
+    // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
   }
 
@@ -41,6 +42,5 @@ public class BudFlowering extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.lift.setBud(false);
   }
 }

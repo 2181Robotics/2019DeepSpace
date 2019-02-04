@@ -10,9 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ExtendStem extends Command {
-  public ExtendStem() {
-    // Use requires() here to declare subsystem dependencies
+public class ToggleBud extends Command {
+  public ToggleBud() {
     requires(Robot.lift);
   }
 
@@ -24,7 +23,7 @@ public class ExtendStem extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setStem(true);
+    Robot.lift.setBud(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,6 +41,6 @@ public class ExtendStem extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.lift.setStem(false);
+    Robot.lift.setBud(false);
   }
 }

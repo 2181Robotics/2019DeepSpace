@@ -44,7 +44,7 @@ public class RobotMap {
   public static DigitalInput Top = new DigitalInput(4);
   //MAYBE public static DigitalInput Overshoot = new DigitalInput(5);
 
-  //Line Sensors
+  //Infrared Line Sensors
   public static AnalogInput LftLineSensor = new AnalogInput(0);
   public static AnalogInput CntrLineSensor = new AnalogInput(1);
   public static AnalogInput RghtLineSensor = new AnalogInput(2);

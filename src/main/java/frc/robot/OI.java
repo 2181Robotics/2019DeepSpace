@@ -23,19 +23,18 @@ public class OI {
     joystick = new RecordedJoystick(0);
     buttonBox = new RecordedJoystick(1);
     joystick.whenPressed(1, new WallGrab());//A
-    joystick.whenPressed(2, new PickItUp());//B
-    joystick.toggleWhenPressed(3, new BudFlowering());//X
-    joystick.toggleWhenPressed(4, new ExtendStem());//Y
+    joystick.whenPressed(2, new CaptainKirkPickUp());//B
+    joystick.toggleWhenPressed(3, new ToggleBud());//X
+    joystick.toggleWhenPressed(4, new ToggleStem());//Y
     joystick.whileHeld(5, new SetLift(.6));//LB
     joystick.whileHeld(6, new SetLift(-.6));//RB
 
-    buttonBox.whenPressed(1, new Deliver("cargo"));//THESE
-    buttonBox.whenPressed(2, new Deliver("low"));//SUBJECT
-    buttonBox.whenPressed(3, new Deliver("middle"));//TO
-    buttonBox.whenPressed(4, new Deliver("top"));//CHANGE
-    buttonBox.whenPressed(5, new Climb());
-    buttonBox.whenPressed(6, new InterruptAll());
-    //buttonBox.whenPressed(7, new AlignFromInfrared());
+    buttonBox.whenPressed(1, new LiftDeliver("low"));
+    buttonBox.whenPressed(2, new LiftDeliver("mid"));
+    buttonBox.whenPressed(3, new LiftDeliver("high"));
+    buttonBox.whenPressed(4, new Climb());
+    buttonBox.whenPressed(5, new InterruptAll());
+    buttonBox.whenPressed(6, new AlignFromIr());//Just in case
 
   }
 }

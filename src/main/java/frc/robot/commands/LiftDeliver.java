@@ -9,7 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class Deliver extends CommandGroup {
+public class LiftDeliver extends CommandGroup {
   /**
    * Add your docs here.
    */
@@ -21,9 +21,11 @@ public class Deliver extends CommandGroup {
     }
   }
 
-  public Deliver(String level) {
+  public LiftDeliver(String level) {
     addSequential(new Prepare(level));
-    addSequential(new ExtendStem());
+    addSequential(new StemExtend(1.5));//Time subject to change
+    addSequential(new BudClose());
+    addSequential(new StemRetract());
     addSequential(new GoTo("low"));
     // Add Commands here:
     // e.g. addSequential(new Command1());

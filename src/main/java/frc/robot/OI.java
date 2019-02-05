@@ -26,8 +26,8 @@ public class OI {
     joystick.whenPressed(2, new CaptainKirkPickUp());//B
     joystick.toggleWhenPressed(3, new ToggleBud());//X
     joystick.toggleWhenPressed(4, new ToggleStem());//Y
-    joystick.whileHeld(5, new SetLift(.6));//LB
-    joystick.whileHeld(6, new SetLift(-.6));//RB
+    joystick.whileHeld(5, new SetLift(-.6));//LB
+    joystick.whileHeld(6, new SetLift(.6));//RB
 
     buttonBox.whenPressed(1, new LiftDeliver("low"));
     buttonBox.whenPressed(2, new LiftDeliver("mid"));

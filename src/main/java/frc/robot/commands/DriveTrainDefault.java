@@ -42,22 +42,22 @@ public class DriveTrainDefault extends Command {
       SmartDashboard.putBoolean("Left Sensor Can See Line", lftSensingWhite);
     } else {
       lftSensingWhite = false;
-      SmartDashboard.putBoolean("Left Sensor Can See Line", rghtSensingWhite);
+      SmartDashboard.putBoolean("Left Sensor Can See Line", lftSensingWhite);
     }
 
     if (rawCntr < 1500) {
       cntrSensingWhite = true;
       SmartDashboard.putBoolean("Center Sensor Can See Line", cntrSensingWhite);
     } else {
-      lftSensingWhite = false;
-      SmartDashboard.putBoolean("Center Sensor Can See Line", rghtSensingWhite);
+      cntrSensingWhite = false;
+      SmartDashboard.putBoolean("Center Sensor Can See Line", cntrSensingWhite);
     }
 
     if (rawRght < 1500) {
       rghtSensingWhite = true;
       SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
     } else {
-      lftSensingWhite = false;
+      rghtSensingWhite = false;
       SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
     }
   }

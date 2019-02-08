@@ -7,7 +7,11 @@
 
 package frc.robot;
 import recording.RecordedJoystick;
-import frc.robot.commands.*;
+import frc.robot.commands.DriveTrain.*;
+import frc.robot.commands.CaptainKirk.*;
+import frc.robot.commands.Group.*;
+import frc.robot.commands.Lift.*;
+import frc.robot.commands.Misc.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator

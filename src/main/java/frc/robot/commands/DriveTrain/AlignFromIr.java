@@ -5,26 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.DriveTrain;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class SetRise extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-
-  private final boolean front;
-  private final boolean back;
-  
-  public SetRise(boolean front, boolean back, double timeout) {
-    super(timeout);
-    this.front = front;
-    this.back = back;
+public class AlignFromIr extends Command {
+  private double rawLft;
+  private double rawCntr;
+  private double rawRght;
+  public AlignFromIr() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
   }
@@ -32,19 +22,34 @@ public class SetRise extends TimedCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveTrain.setFrontThruster(front);
-    Robot.driveTrain.setBackThruster(back);
+    rawLft = Robot.driveTrain.getLeft();
+    rawCntr = Robot.driveTrain.getCntr();
+    rawRght = Robot.driveTrain.getRght();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(0, 0, 0);
+    //Reflective ranges TBD
+    if (rawLft < 1500) {
+      Robot.driveTrain.drive(0, -.4, 0);
+    } else if (rawCntr < 1500) {
+      Robot.driveTrain.drive(.4, 0, 0);
+    } else if (rawRght < 1500) {
+      Robot.driveTrain.drive(0, .4, 0);
+    }
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return true;
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.driveTrain.drive(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

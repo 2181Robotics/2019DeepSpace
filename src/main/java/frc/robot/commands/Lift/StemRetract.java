@@ -5,13 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class LiftDefault extends Command {
-  public LiftDefault() {
+public class StemRetract extends Command {
+  public StemRetract() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
   }
@@ -24,9 +24,7 @@ public class LiftDefault extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLiftSpeed(0);
     Robot.lift.setStem(false);
-    Robot.lift.setBud(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

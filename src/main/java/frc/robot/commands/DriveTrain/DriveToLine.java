@@ -5,16 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ProceedForward extends Command {
-  private final String step;
-
-  public ProceedForward(String step) {
-    this.step = step;
+public class DriveToLine extends Command {
+  public DriveToLine() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
   }
@@ -27,19 +24,18 @@ public class ProceedForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(.35, 0, 0);
+    Robot.driveTrain.drive(.4, 0, 0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Robot.driveTrain.getFrontLimit()&&step.equals("front")||Robot.driveTrain.getBackLimit()&&step.equals("back"));
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.driveTrain.drive(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

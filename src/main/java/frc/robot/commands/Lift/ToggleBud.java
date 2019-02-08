@@ -5,17 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class SetLift extends Command {
-  private final double speed;
-
-  public SetLift(double speed) {
-    this.speed = speed;
-    // Use requires() here to declare subsystem dependencies
+public class ToggleBud extends Command {
+  public ToggleBud() {
     requires(Robot.lift);
   }
 
@@ -27,13 +23,13 @@ public class SetLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLiftSpeed(speed);
+    Robot.lift.setBud(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -45,5 +41,6 @@ public class SetLift extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.lift.setBud(false);
   }
 }

@@ -5,13 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.CaptainKirk;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class CaptainKirkDefault extends Command {
-  public CaptainKirkDefault() {
+import edu.wpi.first.wpilibj.command.TimedCommand;
+
+/**
+ * Add your docs here.
+ */
+public class FlippyBackUp extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public FlippyBackUp(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
     requires(Robot.captainKirk);
   }
@@ -24,23 +32,19 @@ public class CaptainKirkDefault extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.flippyRotMotorSet(0);
+    Robot.captainKirk.flippyRotMotorSet(.6);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
+    Robot.captainKirk.flippyRotMotorSet(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.captainKirk.flippyRotMotorSet(0);
   }
 }

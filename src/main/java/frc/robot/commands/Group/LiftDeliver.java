@@ -5,17 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.Lift.BudClose;
+import frc.robot.commands.Lift.GoTo;
+import frc.robot.commands.Lift.StemExtend;
+import frc.robot.commands.Lift.StemRetract;
 
-public class WallGrab extends CommandGroup {
+public class LiftDeliver extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public WallGrab() {
-    addSequential(new VisionTapeAlign());
-    addSequential(new BudFlowering());
+
+  private class Prepare extends CommandGroup {
+    public Prepare(String level) {
+      addParallel(new GoTo(level));
+      addParallel(new VisionTapeAlign());   
+    }
+  }
+
+  public LiftDeliver(String level) {
+    addSequential(new Prepare(level));
+    addSequential(new StemExtend(1.5));//Time subject to change
+    addSequential(new BudClose());
+    addSequential(new StemRetract());
+    addSequential(new GoTo("low"));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

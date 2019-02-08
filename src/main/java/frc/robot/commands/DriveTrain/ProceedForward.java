@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class AlignFromIr extends Command {
-  private double rawLft;
-  private double rawCntr;
-  private double rawRght;
-  public AlignFromIr() {
+public class ProceedForward extends Command {
+  private final String step;
+
+  public ProceedForward(String step) {
+    this.step = step;
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
   }
@@ -22,28 +22,18 @@ public class AlignFromIr extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    rawLft = Robot.driveTrain.getLeft();
-    rawCntr = Robot.driveTrain.getCntr();
-    rawRght = Robot.driveTrain.getRght();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Reflective ranges TBD
-    if (rawLft < 1500) {
-      Robot.driveTrain.drive(0, -.4, 0);
-    } else if (rawCntr < 1500) {
-      Robot.driveTrain.drive(.4, 0, 0);
-    } else if (rawRght < 1500) {
-      Robot.driveTrain.drive(0, .4, 0);
-    }
+    Robot.driveTrain.drive(.35, 0, 0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return (Robot.driveTrain.getFrontLimit()&&step.equals("front")||Robot.driveTrain.getBackLimit()&&step.equals("back"));
   }
 
   // Called once after isFinished returns true

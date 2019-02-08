@@ -5,9 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.CaptainKirk.ClawOpen;
+import frc.robot.commands.CaptainKirk.Flippy2TheGrnd;
+import frc.robot.commands.CaptainKirk.FlippyBackUp;
 
 public class CaptainKirkPickUp extends CommandGroup {
   public CaptainKirkPickUp() {

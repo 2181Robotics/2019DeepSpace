@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.Lift.BudFlowering;
 
-public class VisionTapeAlign extends CommandGroup {
+public class WallGrab extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public VisionTapeAlign() {
-    addSequential(new AngleSet(true));
-    addSequential(new DriveToLine());
+  public WallGrab() {
+    addSequential(new VisionTapeAlign());
+    addSequential(new BudFlowering());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

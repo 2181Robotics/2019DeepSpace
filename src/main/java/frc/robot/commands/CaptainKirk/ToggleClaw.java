@@ -5,22 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.CaptainKirk;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class StemExtend extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-  public StemExtend(double timeout) {
-    super(timeout);
+public class ToggleClaw extends Command {
+  public ToggleClaw() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.lift);
+    requires(Robot.captainKirk);
   }
 
   // Called just before this Command runs the first time
@@ -31,10 +24,16 @@ public class StemExtend extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setStem(true);
+    Robot.captainKirk.clawSet(true);
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
@@ -43,5 +42,6 @@ public class StemExtend extends TimedCommand {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.captainKirk.clawSet(false);
   }
 }

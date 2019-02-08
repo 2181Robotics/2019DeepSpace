@@ -5,21 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.DriveTrain.AngleSet;
+import frc.robot.commands.DriveTrain.DriveToLine;
 
-public class Climb extends CommandGroup {
+public class VisionTapeAlign extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public Climb() {
-    //Times subject to change
-    addSequential(new SetRise(true, true, 5));
-    addSequential(new ProceedForward("front"));
-    addSequential(new SetRise(false, true, 5));
-    addSequential(new ProceedForward("back"));
-    addSequential(new SetRise(false, false, 5));
+  public VisionTapeAlign() {
+    addSequential(new AngleSet(true));
+    addSequential(new DriveToLine());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

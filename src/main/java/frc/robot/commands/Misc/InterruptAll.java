@@ -5,22 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Misc;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
-
-/**
- * Add your docs here.
- */
-public class Flippy2TheGrnd extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-  public Flippy2TheGrnd(double timeout) {
-    super(timeout);
+public class InterruptAll extends Command {
+  public InterruptAll() {
     // Use requires() here to declare subsystem dependencies
+    requires(Robot.driveTrain);
+    requires(Robot.lift);
     requires(Robot.captainKirk);
   }
 
@@ -32,19 +26,22 @@ public class Flippy2TheGrnd extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.flippyRotMotorSet(-.6);
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return true;
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.captainKirk.flippyRotMotorSet(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.captainKirk.flippyRotMotorSet(0);
   }
 }

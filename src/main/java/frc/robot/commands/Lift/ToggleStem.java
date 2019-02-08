@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ClawOpen extends Command {
-  public ClawOpen() {
+public class ToggleStem extends Command {
+  public ToggleStem() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.captainKirk);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
@@ -24,7 +24,7 @@ public class ClawOpen extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.clawSet(true);
+    Robot.lift.setStem(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,5 +42,6 @@ public class ClawOpen extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.lift.setStem(false);
   }
 }

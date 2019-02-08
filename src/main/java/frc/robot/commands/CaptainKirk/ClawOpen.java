@@ -5,16 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.CaptainKirk;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class InterruptAll extends Command {
-  public InterruptAll() {
+public class ClawOpen extends Command {
+  public ClawOpen() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveTrain);
-    requires(Robot.lift);
     requires(Robot.captainKirk);
   }
 
@@ -26,12 +24,13 @@ public class InterruptAll extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.captainKirk.clawSet(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

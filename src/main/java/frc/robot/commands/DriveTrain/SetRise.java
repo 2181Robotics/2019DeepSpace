@@ -5,35 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.DriveTrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-public class ToggleClaw extends Command {
-  public ToggleClaw() {
+/**
+ * Add your docs here.
+ */
+public class SetRise extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+
+  private final boolean front;
+  private final boolean back;
+  
+  public SetRise(boolean front, boolean back, double timeout) {
+    super(timeout);
+    this.front = front;
+    this.back = back;
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.captainKirk);
+    requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.driveTrain.setFrontThruster(front);
+    Robot.driveTrain.setBackThruster(back);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.clawSet(true);
+    Robot.driveTrain.drive(0, 0, 0);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
   }
@@ -42,6 +51,5 @@ public class ToggleClaw extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.captainKirk.clawSet(false);
   }
 }

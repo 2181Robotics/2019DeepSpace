@@ -5,23 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
-import frc.robot.Robot;
+package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class FlippyBackUp extends TimedCommand {
+public class StemExtend extends TimedCommand {
   /**
    * Add your docs here.
    */
-  public FlippyBackUp(double timeout) {
+  public StemExtend(double timeout) {
     super(timeout);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.captainKirk);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
@@ -32,19 +31,17 @@ public class FlippyBackUp extends TimedCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.captainKirk.flippyRotMotorSet(.6);
+    Robot.lift.setStem(true);
   }
 
   // Called once after timeout
   @Override
   protected void end() {
-    Robot.captainKirk.flippyRotMotorSet(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.captainKirk.flippyRotMotorSet(0);
   }
 }

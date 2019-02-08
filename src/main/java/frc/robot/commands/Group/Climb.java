@@ -5,28 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.DriveTrain.ProceedForward;
+import frc.robot.commands.DriveTrain.SetRise;
 
-public class LiftDeliver extends CommandGroup {
+public class Climb extends CommandGroup {
   /**
    * Add your docs here.
    */
-
-  private class Prepare extends CommandGroup {
-    public Prepare(String level) {
-      addParallel(new GoTo(level));
-      addParallel(new VisionTapeAlign());   
-    }
-  }
-
-  public LiftDeliver(String level) {
-    addSequential(new Prepare(level));
-    addSequential(new StemExtend(1.5));//Time subject to change
-    addSequential(new BudClose());
-    addSequential(new StemRetract());
-    addSequential(new GoTo("low"));
+  public Climb() {
+    //Times subject to change
+    addSequential(new SetRise(true, true, 5));
+    addSequential(new ProceedForward("front"));
+    addSequential(new SetRise(false, true, 5));
+    addSequential(new ProceedForward("back"));
+    addSequential(new SetRise(false, false, 5));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

@@ -5,73 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.CaptainKirk;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class AngleSet extends Command {
-  private final boolean first;
-
-  public AngleSet(boolean first) {
+public class CaptainKirkDefault extends Command {
+  public CaptainKirkDefault() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveTrain);
-    this.first = first;
+    requires(Robot.captainKirk);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (first) {
-      double ratio = SmartDashboard.getNumber("tape_ratio", 1);
-      if (ratio>1) {
-        Robot.driveTrain.setSetpoint(50);
-      } else {
-        Robot.driveTrain.setSetpoint(110);
-      }
-    } else {
-      Robot.driveTrain.setSetpoint(80);
-    }
-    Robot.driveTrain.getPIDController().reset();
-    Robot.driveTrain.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (first) {
-      double ratio = SmartDashboard.getNumber("tape_ratio", 1);
-      if (ratio>.9&&ratio<1.1) {
-        Robot.driveTrain.setSetpoint(80);
-      } else {
-        if (ratio>1) {
-          Robot.driveTrain.setSetpoint(50);
-        } else {
-          Robot.driveTrain.setSetpoint(110);
-        }
-      }
-    } else {
-      Robot.driveTrain.setSetpoint(80);
-    }
+    Robot.captainKirk.flippyRotMotorSet(0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.driveTrain.onTarget();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.driveTrain.disable();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

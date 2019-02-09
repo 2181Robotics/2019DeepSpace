@@ -16,8 +16,6 @@ import frc.robot.commands.DriveTrain.DriveTrainDefault;
 
 import recording.RecordedJoystick;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -36,9 +34,6 @@ public class DriveTrain extends PIDSubsystem {
   private final VictorSP BR;
   private final VictorSP FL;
   private final VictorSP FR;
-
-  private final WPI_TalonSRX L = new WPI_TalonSRX(5);
-  private final WPI_TalonSRX R = new WPI_TalonSRX(6);
   
   public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;
@@ -60,7 +55,7 @@ public class DriveTrain extends PIDSubsystem {
     FL = RobotMap.fL;
     FR = RobotMap.fR;
     drive = new MecanumDrive(FL, BL, FR, BR);
-    drive2 = new DifferentialDrive(L, R);
+    drive2 = new DifferentialDrive(FL, FR);
     lftLineSensor = RobotMap.LftLineSensor;
     cntrLineSensor = RobotMap.CntrLineSensor;
     rghtLineSensor = RobotMap.RghtLineSensor;
@@ -88,8 +83,11 @@ public class DriveTrain extends PIDSubsystem {
   }
 
   public void drive(double y, double x, double spin) {
-    //drive.driveCartesian(y, x, spin); //mess with values later
-    drive2.arcadeDrive(-y, -spin);
+    drive.driveCartesian(y, x, spin); //mess with values later
+  }
+
+  public void drive(double speed, double rot) {
+    drive2.arcadeDrive(speed, rot);
   }
 
   public void drive(RecordedJoystick j) {

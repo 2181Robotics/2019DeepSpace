@@ -12,11 +12,8 @@ import frc.robot.commands.DriveTrain.ProceedForward;
 import frc.robot.commands.DriveTrain.SetRise;
 
 public class Climb extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
   public Climb() {
-    //Times subject to change
+    //TBD - Times for setting rise
     addSequential(new SetRise(true, true, 5));
     addSequential(new ProceedForward("front"));
     addSequential(new SetRise(false, true, 5));

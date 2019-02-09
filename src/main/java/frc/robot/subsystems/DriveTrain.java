@@ -21,9 +21,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
-/**
- * Add your docs here.
- */
 public class DriveTrain extends PIDSubsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

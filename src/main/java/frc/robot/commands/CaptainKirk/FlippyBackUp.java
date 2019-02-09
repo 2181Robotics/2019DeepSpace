@@ -11,13 +11,7 @@ import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
-/**
- * Add your docs here.
- */
 public class FlippyBackUp extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
   public FlippyBackUp(double timeout) {
     super(timeout);
     // Use requires() here to declare subsystem dependencies

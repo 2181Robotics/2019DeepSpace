@@ -16,13 +16,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 
-/**
- * Add your docs here.
- */
 public class Lift extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-
   //These are limit switches
   private DigitalInput bottomLim;
   private DigitalInput middleLim;
@@ -34,9 +28,9 @@ public class Lift extends Subsystem {
   private Solenoid bud;
 
   public Lift() {
-    bottomLim = RobotMap.Bottom;
-    middleLim = RobotMap.Middle;
-    topLim = RobotMap.Top;
+    bottomLim = RobotMap.BottomLim;
+    middleLim = RobotMap.MiddleLim;
+    topLim = RobotMap.TopLim;
 
     liftMotor = RobotMap.LiftMotor;
     stem = RobotMap.Stem;

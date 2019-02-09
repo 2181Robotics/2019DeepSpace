@@ -10,13 +10,7 @@ package frc.robot.commands.Lift;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
 public class StemExtend extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
   public StemExtend(double timeout) {
     super(timeout);
     // Use requires() here to declare subsystem dependencies

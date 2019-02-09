@@ -14,10 +14,6 @@ import frc.robot.commands.Lift.StemExtend;
 import frc.robot.commands.Lift.StemRetract;
 
 public class LiftDeliver extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-
   private class Prepare extends CommandGroup {
     public Prepare(String level) {
       addParallel(new GoTo(level));
@@ -27,25 +23,9 @@ public class LiftDeliver extends CommandGroup {
 
   public LiftDeliver(String level) {
     addSequential(new Prepare(level));
-    addSequential(new StemExtend(1.5));//Time subject to change
+    addSequential(new StemExtend(1.5));//TBD - Time for extend
     addSequential(new BudClose());
     addSequential(new StemRetract());
     addSequential(new GoTo("low"));
-    // Add Commands here:
-    // e.g. addSequential(new Command1());
-    // addSequential(new Command2());
-    // these will run in order.
-
-    // To run multiple commands at the same time,
-    // use addParallel()
-    // e.g. addParallel(new Command1());
-    // addSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
-
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
   }
 }

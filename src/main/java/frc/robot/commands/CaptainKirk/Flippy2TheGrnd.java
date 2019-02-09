@@ -11,13 +11,8 @@ import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
-/**
- * Add your docs here.
- */
 public class Flippy2TheGrnd extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
+
   public Flippy2TheGrnd(double timeout) {
     super(timeout);
     // Use requires() here to declare subsystem dependencies

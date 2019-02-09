@@ -10,14 +10,7 @@ package frc.robot.commands.DriveTrain;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
 public class SetRise extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-
   private final boolean front;
   private final boolean back;
   

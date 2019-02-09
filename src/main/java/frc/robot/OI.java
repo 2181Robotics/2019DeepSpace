@@ -8,20 +8,14 @@
 package frc.robot;
 import recording.RecordedJoystick;
 import frc.robot.commands.DriveTrain.*;
-import frc.robot.commands.CaptainKirk.*;
 import frc.robot.commands.Group.*;
 import frc.robot.commands.Lift.*;
 import frc.robot.commands.Misc.*;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
-
 public class OI {
   public static RecordedJoystick joystick;
   public static RecordedJoystick buttonBox;
-  public OI() { //All buttons subject to change
+  public OI() {
 
     //MAIN BUTTON LAYOUT - DO NOT CHANGE - TESTING LAYOUT BELOW
     joystick = new RecordedJoystick(0);

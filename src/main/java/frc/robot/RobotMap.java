@@ -39,23 +39,13 @@ public class RobotMap {
   //Limit Switches
   public static DigitalInput FrontLimit = new DigitalInput(0);
   public static DigitalInput BackLimit = new DigitalInput(1);
-  public static DigitalInput Bottom = new DigitalInput(2);
-  public static DigitalInput Middle = new DigitalInput(3);
-  public static DigitalInput Top = new DigitalInput(4);
-  //MAYBE public static DigitalInput Overshoot = new DigitalInput(5);
+  public static DigitalInput BottomLim = new DigitalInput(2);
+  public static DigitalInput MiddleLim = new DigitalInput(3);
+  public static DigitalInput TopLim = new DigitalInput(4);
 
   //Infrared Line Sensors
   public static AnalogInput LftLineSensor = new AnalogInput(0);
   public static AnalogInput CntrLineSensor = new AnalogInput(1);
   public static AnalogInput RghtLineSensor = new AnalogInput(2);
 
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
-
-  // If you are using multiple modules, make sure to define both the port
-  // number and the module. For example you with a rangefinder:
-  // public static int rangefinderPort = 1;
-  // public static int rangefinderModule = 1;
 }

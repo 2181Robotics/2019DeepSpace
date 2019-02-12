@@ -92,7 +92,7 @@ public class DriveTrain extends PIDSubsystem {
   }
 
   public void drive(RecordedJoystick j) {
-    drive(-j.getRawAxis(1), j.getRawAxis(0), j.getRawAxis(4));
+    drive(j.getRawAxis(1), -j.getRawAxis(0), j.getRawAxis(4));
   }
 
   public double getLeft(){

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.commands.DriveTrain.DriveTrainDefault;
 
 import recording.RecordedJoystick;
@@ -19,7 +20,6 @@ import recording.RecordedJoystick;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.VictorSP;
 
 public class DriveTrain extends PIDSubsystem {
   // Put methods for controlling this subsystem
@@ -27,10 +27,10 @@ public class DriveTrain extends PIDSubsystem {
   private final MecanumDrive drive;
   private final DifferentialDrive drive2;
 
-  private final VictorSP BL;
-  private final VictorSP BR;
-  private final VictorSP FL;
-  private final VictorSP FR;
+  private final WPI_VictorSPX BL;
+  private final WPI_VictorSPX BR;
+  private final WPI_VictorSPX FL;
+  private final WPI_VictorSPX FR;
   
   public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;

@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -30,10 +31,10 @@ public class RobotMap {
   public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(7);//# May be changed later, could use bosch motor
 
   //Victors
-  public static VictorSP bL = new VictorSP(0);
-  public static VictorSP bR = new VictorSP(1);
-  public static VictorSP fL = new VictorSP(2);
-  public static VictorSP fR = new VictorSP(3);
+  public static WPI_VictorSPX bL = new WPI_VictorSPX(0);
+  public static WPI_VictorSPX bR = new WPI_VictorSPX(1);
+  public static WPI_VictorSPX fL = new WPI_VictorSPX(2);
+  public static WPI_VictorSPX fR = new WPI_VictorSPX(3);
   public static VictorSP LiftMotor = new VictorSP(4);
   
   //Limit Switches

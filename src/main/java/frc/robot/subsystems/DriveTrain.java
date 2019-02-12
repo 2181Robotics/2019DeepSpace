@@ -37,9 +37,11 @@ public class DriveTrain extends PIDSubsystem {
   public AnalogInput rghtLineSensor;
 
   private final Solenoid frontThruster;
-  private final DigitalInput frontLimit;
+  //private final DigitalInput frontLimit;
+  private final DigitalInput frontUltra;
   private final Solenoid backThruster;
-  private final DigitalInput backLimit;
+  //private final DigitalInput backLimit;
+  private final DigitalInput backUltra;
 
   public DriveTrain() {
     super("Drivetrain", .005, .0001, .03); //PID values
@@ -58,9 +60,11 @@ public class DriveTrain extends PIDSubsystem {
     rghtLineSensor = RobotMap.RghtLineSensor;
 
     frontThruster = RobotMap.FrontThruster;
-    frontLimit = RobotMap.FrontLimit;
+    //frontLimit = RobotMap.FrontLimit;
+    frontUltra = RobotMap.FrontUltra;
     backThruster = RobotMap.BackThruster;
-    backLimit = RobotMap.BackLimit;
+    //backLimit = RobotMap.BackLimit;
+    backUltra = RobotMap.BackUltra;
   }
 
   @Override
@@ -110,12 +114,21 @@ public class DriveTrain extends PIDSubsystem {
   public void setBackThruster(boolean value) {
     backThruster.set(value);
   }
-
+  /*
   public boolean getFrontLimit() {
     return frontLimit.get();
   }
 
   public boolean getBackLimit() {
     return backLimit.get();
+  }
+  */
+
+  public boolean getFrontUltra() {
+    return frontUltra.get();
+  }
+
+  public boolean getBackUltra() {
+    return backUltra.get();
   }
 }

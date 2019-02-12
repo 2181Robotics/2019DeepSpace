@@ -29,7 +29,7 @@ public class RobotMap {
   //Talons
   public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(7);//# May be changed later, could use bosch motor
 
-  //Victors, go on the PWM
+  //Victors
   public static VictorSP bL = new VictorSP(0);
   public static VictorSP bR = new VictorSP(1);
   public static VictorSP fL = new VictorSP(2);
@@ -37,8 +37,10 @@ public class RobotMap {
   public static VictorSP LiftMotor = new VictorSP(4);
   
   //Limit Switches
-  public static DigitalInput FrontLimit = new DigitalInput(0);
-  public static DigitalInput BackLimit = new DigitalInput(1);
+  //public static DigitalInput FrontLimit = new DigitalInput(0);
+  //public static DigitalInput BackLimit = new DigitalInput(1);
+  public static DigitalInput FrontUltra = new DigitalInput(0);
+  public static DigitalInput BackUltra = new DigitalInput(1);
   public static DigitalInput BottomLim = new DigitalInput(2);
   public static DigitalInput MiddleLim = new DigitalInput(3);
   public static DigitalInput TopLim = new DigitalInput(4);

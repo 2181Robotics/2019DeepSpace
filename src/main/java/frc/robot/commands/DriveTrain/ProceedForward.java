@@ -34,7 +34,8 @@ public class ProceedForward extends Command {
   @Override
   protected boolean isFinished() {
     //return (Robot.driveTrain.getFrontLimit()&&step.equals("front")||Robot.driveTrain.getBackLimit()&&step.equals("back"));
-    return (Robot.driveTrain.getFrontUltra()&&step.equals("front")||Robot.driveTrain.getBackUltra()&&step.equals("back"));
+    return (Robot.driveTrain.getFrontUltra()&&step.equals("front") ||
+            Robot.driveTrain.getBackUltra()&&step.equals("back"));
   }
 
   // Called once after isFinished returns true

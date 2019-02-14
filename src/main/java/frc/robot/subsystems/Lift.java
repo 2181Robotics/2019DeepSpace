@@ -11,8 +11,11 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.Lift.LiftDefault;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 
 
@@ -22,7 +25,9 @@ public class Lift extends Subsystem {
   private DigitalInput middleLim;
   private DigitalInput topLim;
 
-  private VictorSP liftMotor;
+  private WPI_VictorSPX liftMotor1;
+  private WPI_VictorSPX liftMotor2;
+  private SpeedControllerGroup liftMotors;
 
   private Solenoid stem;
   private Solenoid bud;
@@ -32,7 +37,10 @@ public class Lift extends Subsystem {
     middleLim = RobotMap.MiddleLim;
     topLim = RobotMap.TopLim;
 
-    liftMotor = RobotMap.LiftMotor;
+    liftMotor1 = RobotMap.LiftMotor1;
+    liftMotor2 = RobotMap.LiftMotor2;
+    liftMotors = new SpeedControllerGroup(liftMotor1, liftMotor2);
+
     stem = RobotMap.Stem;
     bud = RobotMap.Bud;
   }
@@ -43,7 +51,7 @@ public class Lift extends Subsystem {
   }
 
   public void setLiftSpeed(double speed) { // make it so positive is up
-    liftMotor.setSpeed(speed);
+    liftMotors.set(speed);
   }
 
   public boolean get(String choice) {

@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.VictorSP;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -35,7 +34,8 @@ public class RobotMap {
   public static WPI_VictorSPX fR = new WPI_VictorSPX(2);
   public static WPI_VictorSPX bL = new WPI_VictorSPX(3);
   public static WPI_VictorSPX bR = new WPI_VictorSPX(4);
-  public static VictorSP LiftMotor = new VictorSP(5);
+  public static WPI_VictorSPX LiftMotor1 = new WPI_VictorSPX(5);
+  public static WPI_VictorSPX LiftMotor2 = new WPI_VictorSPX(5);
   
   //Limit Switches
   //public static DigitalInput FrontLimit = new DigitalInput(0);

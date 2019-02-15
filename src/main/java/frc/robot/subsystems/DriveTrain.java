@@ -25,7 +25,7 @@ public class DriveTrain extends PIDSubsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final MecanumDrive drive;
-  private final DifferentialDrive drive2;
+  //private final DifferentialDrive drive2;
 
   private final WPI_VictorSPX BL;
   private final WPI_VictorSPX BR;
@@ -50,11 +50,15 @@ public class DriveTrain extends PIDSubsystem {
     setOutputRange(-.5, .5);
 
     BL = RobotMap.bL;
+    BL.setInverted(false);
     BR = RobotMap.bR;
+    BR.setInverted(false);
     FL = RobotMap.fL;
+    FL.setInverted(false);
     FR = RobotMap.fR;
+    FR.setInverted(false);
     drive = new MecanumDrive(FL, BL, FR, BR);
-    drive2 = new DifferentialDrive(FL, FR);
+    //drive2 = new DifferentialDrive(FL, FR);
     lftLineSensor = RobotMap.LftLineSensor;
     cntrLineSensor = RobotMap.CntrLineSensor;
     rghtLineSensor = RobotMap.RghtLineSensor;
@@ -84,11 +88,11 @@ public class DriveTrain extends PIDSubsystem {
   }
 
   public void drive(double y, double x, double spin) {
-    drive.driveCartesian(-y, -x, spin); //mess with values later
+    drive.driveCartesian(x, y, spin); //mess with values later
   }
 
   public void drive(double speed, double rot) {
-    drive2.arcadeDrive(speed, rot);
+    //drive2.arcadeDrive(speed, rot);
   }
 
   public void drive(RecordedJoystick j) {

@@ -35,7 +35,7 @@ public class RobotMap {
   public static WPI_VictorSPX bL = new WPI_VictorSPX(3);
   public static WPI_VictorSPX bR = new WPI_VictorSPX(4);
   public static WPI_VictorSPX LiftMotor1 = new WPI_VictorSPX(5);
-  public static WPI_VictorSPX LiftMotor2 = new WPI_VictorSPX(5);
+  public static WPI_VictorSPX LiftMotor2 = new WPI_VictorSPX(6);
   
   //Limit Switches
   //public static DigitalInput FrontLimit = new DigitalInput(0);

@@ -36,6 +36,8 @@ public class DriveTrain extends PIDSubsystem {
   public AnalogInput cntrLineSensor;
   public AnalogInput rghtLineSensor;
 
+  public AnalogInput pressureGauge;
+
   private final Solenoid frontThruster;
   //private final DigitalInput frontLimit;
   private final DigitalInput frontUltra;
@@ -65,6 +67,8 @@ public class DriveTrain extends PIDSubsystem {
     lftLineSensor = RobotMap.LftLineSensor;
     cntrLineSensor = RobotMap.CntrLineSensor;
     rghtLineSensor = RobotMap.RghtLineSensor;
+
+    pressureGauge = RobotMap.PressureGauge;
 
     frontThruster = RobotMap.FrontThruster;
     //frontLimit = RobotMap.FrontLimit;
@@ -121,16 +125,7 @@ public class DriveTrain extends PIDSubsystem {
   public void setBackThruster(boolean value) {
     backThruster.set(value);
   }
-  /*
-  public boolean getFrontLimit() {
-    return frontLimit.get();
-  }
-
-  public boolean getBackLimit() {
-    return backLimit.get();
-  }
-  */
-
+  
   public boolean getFrontUltra() {
     return frontUltra.get();
   }
@@ -138,4 +133,9 @@ public class DriveTrain extends PIDSubsystem {
   public boolean getBackUltra() {
     return backUltra.get();
   }
+
+  public int getPressure() {
+    return pressureGauge.getValue();
+  }
+  
 }

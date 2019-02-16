@@ -46,9 +46,11 @@ public class RobotMap {
   public static DigitalInput MiddleLim = new DigitalInput(3);
   public static DigitalInput TopLim = new DigitalInput(4);
 
-  //Infrared Line Sensors
+  //AnalogInput: Pressure Gauge & Infrared Line Sensors
   public static AnalogInput LftLineSensor = new AnalogInput(0);
   public static AnalogInput CntrLineSensor = new AnalogInput(1);
   public static AnalogInput RghtLineSensor = new AnalogInput(2);
+  public static AnalogInput PressureGauge = new AnalogInput(3);
+
 
 }

@@ -19,6 +19,7 @@ public class DriveTrainDefault extends Command {
   private double rawLft;
   private double rawCntr;
   private double rawRght;
+  private int pressure;
   public DriveTrainDefault() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
@@ -36,6 +37,7 @@ public class DriveTrainDefault extends Command {
     rawLft = Robot.driveTrain.getLeft();
     rawCntr = Robot.driveTrain.getCntr();
     rawRght = Robot.driveTrain.getRght();
+    pressure = Robot.driveTrain.getPressure();
     //Reflective ranges TBD
     if (rawLft < 1500) {
       lftSensingWhite = true;
@@ -60,6 +62,8 @@ public class DriveTrainDefault extends Command {
       rghtSensingWhite = false;
       SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
     }
+
+    SmartDashboard.putNumber("Pressure", pressure);
   }
 
   // Make this return true when this Command no longer needs to run execute()

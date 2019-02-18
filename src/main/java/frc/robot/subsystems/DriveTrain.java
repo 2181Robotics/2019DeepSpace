@@ -20,6 +20,7 @@ import recording.RecordedJoystick;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 public class DriveTrain extends PIDSubsystem {
   // Put methods for controlling this subsystem
@@ -32,18 +33,20 @@ public class DriveTrain extends PIDSubsystem {
   private final WPI_VictorSPX FL;
   private final WPI_VictorSPX FR;
   
-  public AnalogInput lftLineSensor;
+  //public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;
-  public AnalogInput rghtLineSensor;
+  //public AnalogInput rghtLineSensor;
+  private final double sensorThreshold = 1500;
 
   public AnalogInput pressureGauge;
 
   private final Solenoid frontThruster;
   //private final DigitalInput frontLimit;
-  private final DigitalInput frontUltra;
+  private final AnalogInput frontUltra;
   private final Solenoid backThruster;
   //private final DigitalInput backLimit;
-  private final DigitalInput backUltra;
+  private final AnalogInput backUltra;
+  private final int ultraThreshold = 1000; //change later
 
   public DriveTrain() {
     super("Drivetrain", .005, .0001, .03); //PID values
@@ -64,9 +67,9 @@ public class DriveTrain extends PIDSubsystem {
     drive.setDeadband(.15);
     drive.setMaxOutput(.75);
     drive2 = new DifferentialDrive(FL, FR);
-    lftLineSensor = RobotMap.LftLineSensor;
+    //lftLineSensor = RobotMap.LftLineSensor;
     cntrLineSensor = RobotMap.CntrLineSensor;
-    rghtLineSensor = RobotMap.RghtLineSensor;
+    //rghtLineSensor = RobotMap.RghtLineSensor;
 
     pressureGauge = RobotMap.PressureGauge;
 
@@ -106,17 +109,17 @@ public class DriveTrain extends PIDSubsystem {
     drive(-j.getRawAxis(1), j.getRawAxis(0), j.getRawAxis(4));
   }
 
-  public double getLeft(){
-    return lftLineSensor.getValue();
+  // public boolean getLeft(){
+  //   return lftLineSensor.getValue()<sensorThreshold;
+  // }
+
+  public boolean getCntr(){
+    return cntrLineSensor.getValue()<sensorThreshold;
   }
 
-  public double getCntr(){
-    return cntrLineSensor.getValue();
-  }
-
-  public double getRght(){
-    return rghtLineSensor.getValue();
-  }
+  // public boolean getRght(){
+  //   return rghtLineSensor.getValue()<sensorThreshold;
+  // }
 
   public void setFrontThruster(boolean value) {
     frontThruster.set(value);
@@ -127,11 +130,11 @@ public class DriveTrain extends PIDSubsystem {
   }
   
   public boolean getFrontUltra() {
-    return frontUltra.get();
+    return frontUltra.getValue()<ultraThreshold;
   }
 
   public boolean getBackUltra() {
-    return backUltra.get();
+    return backUltra.getValue()<ultraThreshold;
   }
 
   public int getPressure() {

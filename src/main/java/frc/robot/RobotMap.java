@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Ultrasonic;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -40,16 +41,16 @@ public class RobotMap {
   //Limit Switches
   //public static DigitalInput FrontLimit = new DigitalInput(0);
   //public static DigitalInput BackLimit = new DigitalInput(1);
-  public static DigitalInput FrontUltra = new DigitalInput(0);
-  public static DigitalInput BackUltra = new DigitalInput(1);
+  public static AnalogInput FrontUltra = new AnalogInput(1);
+  public static AnalogInput BackUltra = new AnalogInput(2);
   public static DigitalInput BottomLim = new DigitalInput(2);
   public static DigitalInput MiddleLim = new DigitalInput(3);
   public static DigitalInput TopLim = new DigitalInput(4);
 
   //AnalogInput: Pressure Gauge & Infrared Line Sensors
-  public static AnalogInput LftLineSensor = new AnalogInput(0);
+  //public static AnalogInput LftLineSensor = new AnalogInput(0);
   public static AnalogInput CntrLineSensor = new AnalogInput(1);
-  public static AnalogInput RghtLineSensor = new AnalogInput(2);
+  //public static AnalogInput RghtLineSensor = new AnalogInput(2);
   public static AnalogInput PressureGauge = new AnalogInput(3);
 
 

@@ -99,10 +99,12 @@ public class DriveTrain extends PIDSubsystem {
 
   public void drive(double y, double x, double spin) {
     drive.driveCartesian(-x, y, spin); //mess with values later
+    SmartDashboard.putNumber("Pressure", getPressure());
   }
 
   public void drive(double speed, double rot) {
     drive2.arcadeDrive(speed, rot);
+    SmartDashboard.putNumber("Pressure", getPressure());
   }
 
   public void drive(RecordedJoystick j) {

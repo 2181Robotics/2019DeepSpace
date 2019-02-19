@@ -66,11 +66,12 @@ public class Lift extends Subsystem {
   }
 
   public void setStem(boolean pushed){
-  stem.set(pushed);
+    if (!pushed) bud.set(false);
+    stem.set(pushed);
   }
 
   public void setBud(boolean flowering){
-    bud.set(flowering);
-    }
+    if (stem.get()) bud.set(flowering);
+  }
   
 }

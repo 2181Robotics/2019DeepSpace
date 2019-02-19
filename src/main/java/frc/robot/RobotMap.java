@@ -21,14 +21,14 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  */
 public class RobotMap {
   //Pneumatics
-  public static Solenoid FrontThruster = new Solenoid(1, 0);
-  public static Solenoid BackThruster = new Solenoid(1, 1);
-  public static Solenoid ClawNoid = new Solenoid(1, 2);
-  public static Solenoid Stem = new Solenoid(1, 3);
-  public static Solenoid Bud = new Solenoid(1, 4);
+  public static Solenoid FrontThruster = new Solenoid(7, 0);
+  public static Solenoid BackThruster = new Solenoid(7, 1);
+  public static Solenoid ClawNoid = new Solenoid(7, 2);
+  public static Solenoid Stem = new Solenoid(7, 3);
+  public static Solenoid Bud = new Solenoid(7, 4);
 
   //Talons
-  public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(7);//# May be changed later, could use bosch motor
+  public static WPI_TalonSRX FlippyRotMotor = new WPI_TalonSRX(8);//# May be changed later, could use bosch motor
 
   //Victors
   public static WPI_VictorSPX fL = new WPI_VictorSPX(1);
@@ -49,7 +49,7 @@ public class RobotMap {
 
   //AnalogInput: Pressure Gauge & Infrared Line Sensors
   //public static AnalogInput LftLineSensor = new AnalogInput(0);
-  public static AnalogInput CntrLineSensor = new AnalogInput(1);
+  public static AnalogInput CntrLineSensor = new AnalogInput(0);
   //public static AnalogInput RghtLineSensor = new AnalogInput(2);
   public static AnalogInput PressureGauge = new AnalogInput(3);
 

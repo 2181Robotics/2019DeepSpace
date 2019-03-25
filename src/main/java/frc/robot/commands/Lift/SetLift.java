@@ -9,12 +9,16 @@ package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Lift;;
 
 public class SetLift extends Command {
   private final double speed;
+  private Lift lift;
+  private boolean btmLimState;
 
   public SetLift(double speed) {
     this.speed = speed;
+    
     // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
   }
@@ -27,7 +31,12 @@ public class SetLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    btmLimState = lift.getBtmLim();
+    if (btmLimState = true){
+      Robot.lift.setLiftSpeed(0);
+    } else {
     Robot.lift.setLiftSpeed(speed);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

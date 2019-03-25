@@ -16,9 +16,6 @@ public class DriveTrainDefault extends Command {
   private boolean lftSensingWhite;
   private boolean cntrSensingWhite;
   private boolean rghtSensingWhite;
-  private boolean rawLft;
-  private boolean rawCntr;
-  private boolean rawRght;
   private int pressure;
   public DriveTrainDefault() {
     // Use requires() here to declare subsystem dependencies
@@ -34,35 +31,15 @@ public class DriveTrainDefault extends Command {
   @Override
   protected void execute() {
     Robot.driveTrain.drive(OI.joystick);
-    //rawLft = Robot.driveTrain.getLeft();
-    rawCntr = Robot.driveTrain.getCntr();
-    //rawRght = Robot.driveTrain.getRght();
+    lftSensingWhite = Robot.driveTrain.getLeft();
+    cntrSensingWhite = Robot.driveTrain.getCntr();
+    rghtSensingWhite = Robot.driveTrain.getRght();
     pressure = Robot.driveTrain.getPressure();
     SmartDashboard.putNumber("Pressure", pressure);
     //Reflective ranges TBD
-    // if (rawLft) {
-    //   lftSensingWhite = true;
-    //   SmartDashboard.putBoolean("Left Sensor Can See Line", lftSensingWhite);
-    // } else {
-    //   lftSensingWhite = false;
-    //   SmartDashboard.putBoolean("Left Sensor Can See Line", lftSensingWhite);
-    // }
-
-    if (rawCntr) {
-      cntrSensingWhite = true;
-      SmartDashboard.putBoolean("Center Sensor Can See Line", cntrSensingWhite);
-    } else {
-      cntrSensingWhite = false;
-      SmartDashboard.putBoolean("Center Sensor Can See Line", cntrSensingWhite);
-    }
-
-    // if (rawRght < 1500) {
-    //   rghtSensingWhite = true;
-    //   SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
-    // } else {
-    //   rghtSensingWhite = false;
-    //   SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
-    // }
+    SmartDashboard.putBoolean("Left Sensor Can See Line", lftSensingWhite);
+    SmartDashboard.putBoolean("Center Sensor Can See Line", cntrSensingWhite);
+    SmartDashboard.putBoolean("Right Sensor Can See Line", rghtSensingWhite);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -18,9 +18,7 @@ import frc.robot.commands.DriveTrain.DriveTrainDefault;
 import recording.RecordedJoystick;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 public class DriveTrain extends PIDSubsystem {
   // Put methods for controlling this subsystem
@@ -33,9 +31,9 @@ public class DriveTrain extends PIDSubsystem {
   private final WPI_VictorSPX FL;
   private final WPI_VictorSPX FR;
   
-  //public AnalogInput lftLineSensor;
+  public AnalogInput lftLineSensor;
   public AnalogInput cntrLineSensor;
-  //public AnalogInput rghtLineSensor;
+  public AnalogInput rghtLineSensor;
   private final double sensorThreshold = 1500;
 
   public AnalogInput pressureGauge;
@@ -111,17 +109,17 @@ public class DriveTrain extends PIDSubsystem {
     drive(-j.getRawAxis(1), j.getRawAxis(0), j.getRawAxis(4));
   }
 
-  // public boolean getLeft(){
-  //   return lftLineSensor.getValue()<sensorThreshold;
-  // }
+  public boolean getLeft(){
+     return lftLineSensor.getValue()<sensorThreshold;
+  }
 
   public boolean getCntr(){
     return cntrLineSensor.getValue()<sensorThreshold;
   }
 
-  // public boolean getRght(){
-  //   return rghtLineSensor.getValue()<sensorThreshold;
-  // }
+  public boolean getRght(){
+     return rghtLineSensor.getValue()<sensorThreshold;
+  }
 
   public void setFrontThruster(boolean value) {
     frontThruster.set(value);

@@ -73,5 +73,9 @@ public class Lift extends Subsystem {
   public void setBud(boolean flowering){
     if (stem.get()) bud.set(flowering);
   }
+
+  public boolean getBtmLim(){
+    return bottomLim.get();
+  }
   
 }

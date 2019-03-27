@@ -38,17 +38,17 @@ public class RobotMap {
   public static WPI_VictorSPX LiftMotor2 = new WPI_VictorSPX(6);
   
   //Limit Switches
-  //public static DigitalInput FrontLimit = new DigitalInput(0);
-  //public static DigitalInput BackLimit = new DigitalInput(1);
-  public static AnalogInput FrontUltra = new AnalogInput(1);
-  public static AnalogInput BackUltra = new AnalogInput(2);
-  public static DigitalInput BottomLim = new DigitalInput(2);
-  public static DigitalInput MiddleLim = new DigitalInput(3);
-  public static DigitalInput TopLim = new DigitalInput(4);
+  //public static DigitalInput FrontLimit = new DigitalInput(3);
+  //public static DigitalInput BackLimit = new DigitalInput(4);
+  public static AnalogInput FrontUltra = new AnalogInput(4);
+  public static AnalogInput BackUltra = new AnalogInput(5);
+  public static DigitalInput BottomLim = new DigitalInput(0);
+  public static DigitalInput MiddleLim = new DigitalInput(1);
+  public static DigitalInput TopLim = new DigitalInput(2);
 
   //AnalogInput: Pressure Gauge & Infrared Line Sensors
   public static AnalogInput LftLineSensor = new AnalogInput(0);
-  public static AnalogInput CntrLineSensor = new AnalogInput(0);
+  public static AnalogInput CntrLineSensor = new AnalogInput(1);
   public static AnalogInput RghtLineSensor = new AnalogInput(2);
   public static AnalogInput PressureGauge = new AnalogInput(3);
 

@@ -9,7 +9,7 @@ package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Lift;;
+import frc.robot.subsystems.Lift;
 
 public class SetLift extends Command {
   private final double speed;
@@ -35,7 +35,7 @@ public class SetLift extends Command {
     if (btmLimState = true){
       Robot.lift.setLiftSpeed(0);
     } else {
-    Robot.lift.setLiftSpeed(speed);
+    Robot.lift.setLiftSpeed(.8 * speed);
     }
   }
 

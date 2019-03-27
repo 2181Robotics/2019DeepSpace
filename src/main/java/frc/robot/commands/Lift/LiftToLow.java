@@ -8,12 +8,14 @@
 package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.subsystems.Lift;
 
-public class LiftDefault extends Command {
-  OI oi;
-  public LiftDefault() {
+public class LiftToLow extends Command {
+  private boolean btmLimState;
+  private Lift lift;
+  public LiftToLow() {
+    // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
   }
 
@@ -25,20 +27,19 @@ public class LiftDefault extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setStem(false);
-    Robot.lift.setBud(false);
-    Robot.lift.setWithTriggers(oi.joystick);
+    Robot.lift.setLiftSpeed(-.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.lift.get("low");
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.lift.setLiftSpeed(0);
   }
 
   // Called when another command which requires one or more of the same

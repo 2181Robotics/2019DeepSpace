@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.Lift.LiftDefault;
+import recording.RecordedJoystick;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -31,6 +32,9 @@ public class Lift extends Subsystem {
   private Solenoid stem;
   private Solenoid bud;
 
+  int DOWNAXIS;
+  int UPAXIS;
+
   public Lift() {
     bottomLim = RobotMap.BottomLim;
     middleLim = RobotMap.MiddleLim;
@@ -42,6 +46,9 @@ public class Lift extends Subsystem {
 
     stem = RobotMap.Stem;
     bud = RobotMap.Bud;
+
+    DOWNAXIS = 2;
+    UPAXIS = 5;
   }
 
   @Override
@@ -51,6 +58,16 @@ public class Lift extends Subsystem {
 
   public void setLiftSpeed(double speed) { // make it so positive is up
     liftMotors.set(speed);
+  }
+
+  public void setWithTriggers(RecordedJoystick j) { // make it so positive is up
+    if (j.getRawAxis(DOWNAXIS) > 0){
+      setLiftSpeed(-.8 * j.getRawAxis(DOWNAXIS));
+      } else if (j.getRawAxis(UPAXIS) > 0){
+      setLiftSpeed(.8 * j.getRawAxis(UPAXIS));
+      } else {
+      setLiftSpeed(0);
+      }
   }
 
   public boolean get(String choice) {

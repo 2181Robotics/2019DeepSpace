@@ -20,19 +20,20 @@ public class OI {
     //MAIN BUTTON LAYOUT - DO NOT CHANGE - TESTING LAYOUT BELOW
     joystick = new RecordedJoystick(0);
     buttonBox = new RecordedJoystick(1);
-    joystick.whenPressed(1, new WallGrab());//A
-    joystick.whenPressed(2, new CaptainKirkPickUp());//B
-    joystick.toggleWhenPressed(3, new ToggleBud());//X
+    //joystick.whenPressed(1, new WallGrab());//A
+    joystick.whenPressed(1, new ToggleBud());//A
+    joystick.whenPressed(2, new LiftToLow());//B
+    joystick.whenPressed(3, new CaptainKirkPickUp());//X
     joystick.toggleWhenPressed(4, new ToggleStem());//Y
-    joystick.whileHeld(5, new SetLift(-.6));//LB
-    joystick.whileHeld(6, new SetLift(.6));//RB
+    joystick.whileHeld(5, new SetLift(-.6));//LB - should b down
+    joystick.whileHeld(6, new SetLift(.6));//RB - should b up
 
-    buttonBox.whenPressed(1, new LiftDeliver("low"));
-    buttonBox.whenPressed(2, new LiftDeliver("mid"));
-    buttonBox.whenPressed(3, new LiftDeliver("high"));
-    buttonBox.whenPressed(4, new Climb());
+    //buttonBox.whenPressed(1, new LiftDeliver("low"));
+    //buttonBox.whenPressed(2, new LiftDeliver("mid"));
+    //buttonBox.whenPressed(3, new LiftDeliver("high"));
+    //buttonBox.whenPressed(4, new Climb());
     buttonBox.whenPressed(5, new InterruptAll());
-    buttonBox.whenPressed(6, new AlignFromIr());//Just in case
+    //buttonBox.whenPressed(6, new AlignFromIr());//Just in case
 
   }
 }

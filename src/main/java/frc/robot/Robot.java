@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.CaptainKirk;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lift;
+import recording.ReplayAuto;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,18 +32,35 @@ public class Robot extends TimedRobot {
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public static SendableChooser<String> to_record = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+
+  private void recordSetUp() {
+    to_record.addDefault("Left_Start", "/U/Recording/left_s.txt");
+    to_record.addObject("Middle_Start", "/U/Recording/mid_s.txt");
+    to_record.addObject("Right Start", "U/Recording/right_s.txt");
+    SmartDashboard.putData("Record", to_record);
+  }
+
+  private void replaySetUp() {
+    m_chooser.addDefault("Left", new ReplayAuto("/U/Recording/left_s.txt", OI.joystick));
+    m_chooser.addObject("Middle", new ReplayAuto("/U/Recording/mid_s.txt", OI.joystick));
+    m_chooser.addObject("Right", new ReplayAuto("/U/Recording/right_s.txt", OI.joystick));
+    SmartDashboard.putData("Autonomous", m_chooser);
+  }
+
   @Override
   public void robotInit() {
     driveTrain = new DriveTrain();
     captainKirk = new CaptainKirk();
     lift = new Lift();
     m_oi = new OI();
-    SmartDashboard.putData("Auto mode", m_chooser);
+    recordSetUp();
+    replaySetUp();
   }
 
   /**
@@ -105,6 +123,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    teleopPeriodic();
   }
 
   @Override

@@ -5,22 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Lift;
+package frc.robot.commands.CaptainKirk;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Lift;
 
-public class SetLift extends Command {
-  private final double speed;
-  private Lift lift;
-  private boolean btmLimState;
-
-  public SetLift(double speed) {
-    this.speed = speed;
-    
+public class CaptainKirkUp extends Command {
+  public CaptainKirkUp() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.lift);
+   requires(Robot.captainKirk);
   }
 
   // Called just before this Command runs the first time
@@ -31,29 +24,25 @@ public class SetLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    btmLimState = lift.getBtmLim();
-    boolean topLimState = lift.get("high");
-    if (btmLimState = true && speed<0 || topLimState && speed>0){
-      Robot.lift.setLiftSpeed(0);
-    } else {
-    Robot.lift.setLiftSpeed(.8 * speed);
-    }
+    Robot.captainKirk.flippyRotMotorSet(.6);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.captainKirk.flippyRotMotorSet(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.captainKirk.flippyRotMotorSet(0);
   }
 }

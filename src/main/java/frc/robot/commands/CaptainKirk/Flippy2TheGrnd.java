@@ -9,12 +9,11 @@ package frc.robot.commands.CaptainKirk;
 
 import frc.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class Flippy2TheGrnd extends TimedCommand {
+public class Flippy2TheGrnd extends Command {
 
-  public Flippy2TheGrnd(double timeout) {
-    super(timeout);
+  public Flippy2TheGrnd() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.captainKirk);
   }
@@ -28,6 +27,11 @@ public class Flippy2TheGrnd extends TimedCommand {
   @Override
   protected void execute() {
     Robot.captainKirk.flippyRotMotorSet(-.6);
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return true;
   }
 
   // Called once after timeout

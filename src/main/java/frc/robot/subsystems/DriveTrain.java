@@ -65,9 +65,9 @@ public class DriveTrain extends PIDSubsystem {
     drive.setDeadband(.15);
     drive.setMaxOutput(.75);
     drive2 = new DifferentialDrive(FL, FR);
-    //lftLineSensor = RobotMap.LftLineSensor;
+    lftLineSensor = RobotMap.LftLineSensor;
     cntrLineSensor = RobotMap.CntrLineSensor;
-    //rghtLineSensor = RobotMap.RghtLineSensor;
+    rghtLineSensor = RobotMap.RghtLineSensor;
 
     pressureGauge = RobotMap.PressureGauge;
 
@@ -106,7 +106,7 @@ public class DriveTrain extends PIDSubsystem {
   }
 
   public void drive(RecordedJoystick j) {
-    drive(-j.getRawAxis(1), j.getRawAxis(0), j.getRawAxis(4));
+    drive(-j.getRawAxis(1), -j.getRawAxis(0), j.getRawAxis(4));
   }
 
   public boolean getLeft(){

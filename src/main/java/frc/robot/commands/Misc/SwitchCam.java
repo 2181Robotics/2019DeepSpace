@@ -5,39 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Lift;
+package frc.robot.commands.Misc;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import frc.robot.subsystems.Lift;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SetLift extends Command {
-  private final double speed;
-  private Lift lift;
-  private boolean btmLimState;
+public class SwitchCam extends Command {
+  private static String cam = "front";
 
-  public SetLift(double speed) {
-    this.speed = speed;
-    
+  public SwitchCam() {
+    SmartDashboard.putString("camera", "front");
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.lift);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if (cam.equals("front")) {
+      cam = "back";
+    } else {
+      cam = "front";
+    }
+    SmartDashboard.putString("camera", cam);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    btmLimState = lift.getBtmLim();
-    boolean topLimState = lift.get("high");
-    if (btmLimState = true && speed<0 || topLimState && speed>0){
-      Robot.lift.setLiftSpeed(0);
-    } else {
-    Robot.lift.setLiftSpeed(.8 * speed);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

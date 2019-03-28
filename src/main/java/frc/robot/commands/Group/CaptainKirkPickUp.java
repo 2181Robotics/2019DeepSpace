@@ -15,7 +15,7 @@ import frc.robot.commands.CaptainKirk.FlippyBackUp;
 public class CaptainKirkPickUp extends CommandGroup {
   public CaptainKirkPickUp() {
     //TBD - Times for Flippy commands
-    addSequential(new Flippy2TheGrnd(2));
+    addSequential(new Flippy2TheGrnd());
     addSequential(new ClawOpen());
     addSequential(new FlippyBackUp(2));
   }

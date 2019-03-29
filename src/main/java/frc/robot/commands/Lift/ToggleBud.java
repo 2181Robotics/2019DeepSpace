@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ToggleBud extends Command {
-  private static boolean state = false;
   public ToggleBud() {
     requires(Robot.lift);
   }
@@ -24,14 +23,13 @@ public class ToggleBud extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    state = !state;
-    Robot.lift.setBud(state);
+    Robot.lift.setBud(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -43,5 +41,6 @@ public class ToggleBud extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.lift.setBud(false);
   }
 }

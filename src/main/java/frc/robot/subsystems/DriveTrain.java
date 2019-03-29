@@ -38,10 +38,12 @@ public class DriveTrain extends PIDSubsystem {
 
   public AnalogInput pressureGauge;
 
-  private final Solenoid frontThruster;
+  private final Solenoid frontThrusterDown;
+  private final Solenoid frontThrusterUp;
   //private final DigitalInput frontLimit;
   private final AnalogInput frontUltra;
-  private final Solenoid backThruster;
+  private final Solenoid backThrusterDown;
+  private final Solenoid backThrusterUp;
   //private final DigitalInput backLimit;
   private final AnalogInput backUltra;
   private final int ultraThreshold = 1000; //change later
@@ -71,10 +73,12 @@ public class DriveTrain extends PIDSubsystem {
 
     pressureGauge = RobotMap.PressureGauge;
 
-    frontThruster = RobotMap.FrontThruster;
+    frontThrusterDown = RobotMap.FrontThrusterDown;
+    frontThrusterUp = RobotMap.FrontThrusterUp;
     //frontLimit = RobotMap.FrontLimit;
     frontUltra = RobotMap.FrontUltra;
-    backThruster = RobotMap.BackThruster;
+    backThrusterDown = RobotMap.BackThrusterDown;
+    backThrusterUp = RobotMap.BackThrusterUp;
     //backLimit = RobotMap.BackLimit;
     backUltra = RobotMap.BackUltra;
   }
@@ -122,11 +126,23 @@ public class DriveTrain extends PIDSubsystem {
   }
 
   public void setFrontThruster(boolean value) {
-    frontThruster.set(value);
+    if (value) {
+      frontThrusterUp.set(false);
+      frontThrusterDown.set(true);
+    } else {
+      frontThrusterDown.set(false);
+      frontThrusterUp.set(true);
+    }
   }
 
   public void setBackThruster(boolean value) {
-    backThruster.set(value);
+    if (value) {
+      backThrusterUp.set(false);
+      backThrusterDown.set(true);
+    } else {
+      backThrusterDown.set(false);
+      backThrusterUp.set(true);
+    }
   }
   
   public boolean getFrontUltra() {

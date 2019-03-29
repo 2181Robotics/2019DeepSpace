@@ -31,7 +31,7 @@ public class OI {
     joystick.whenPressed(1, new ToggleBud());//A
     joystick.whenPressed(2, new LiftToLow());//B
     joystick.whenPressed(3, new CaptainKirkPickUp());//X
-    joystick.toggleWhenPressed(4, new ToggleStem());//Y
+    joystick.whenPressed(4, new ToggleStem());//Y
     joystick.whileHeld(5, new SetLift(-.6));//LB - should b down
     joystick.whileHeld(6, new SetLift(.6));//RB - should b up
 

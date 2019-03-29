@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ToggleStem extends Command {
+  private static boolean state = false;
   public ToggleStem() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
@@ -24,13 +25,14 @@ public class ToggleStem extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setStem(true);
+    state = !state;
+    Robot.lift.setStem(state);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -42,6 +44,5 @@ public class ToggleStem extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.lift.setStem(false);
   }
 }

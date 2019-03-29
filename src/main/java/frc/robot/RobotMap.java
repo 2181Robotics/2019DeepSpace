@@ -20,10 +20,8 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class RobotMap {
   //Pneumatics
-  public static Solenoid FrontThrusterDown = new Solenoid(7, 0);
-  public static Solenoid FrontThrusterUp = new Solenoid(7, 5);
-  public static Solenoid BackThrusterDown = new Solenoid(7, 1);
-  public static Solenoid BackThrusterUp = new Solenoid(7, 6);
+  public static Solenoid FrontThruster = new Solenoid(7, 0);
+  public static Solenoid BackThruster = new Solenoid(7, 1);
   public static Solenoid ClawNoid = new Solenoid(7, 2);
   public static Solenoid Stem = new Solenoid(7, 3);
   public static Solenoid Bud = new Solenoid(7, 4);

@@ -47,7 +47,8 @@ public class Robot extends TimedRobot {
   }
 
   private void replaySetUp() {
-    m_chooser.addDefault("Left", new ReplayAuto("/U/Recording/left_s.txt", OI.joystick));
+    m_chooser.addDefault("None", null);
+    m_chooser.addObject("Left", new ReplayAuto("/U/Recording/left_s.txt", OI.joystick));
     m_chooser.addObject("Middle", new ReplayAuto("/U/Recording/mid_s.txt", OI.joystick));
     m_chooser.addObject("Right", new ReplayAuto("/U/Recording/right_s.txt", OI.joystick));
     SmartDashboard.putData("Autonomous", m_chooser);
@@ -123,7 +124,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    teleopPeriodic();
+    if (m_autonomousCommand == null) {
+      teleopPeriodic();
+    }
   }
 
   @Override

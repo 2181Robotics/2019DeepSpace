@@ -16,18 +16,33 @@ public class RecordedJoystick {
     public boolean recording = false;
     public String currFile = "";
     public int total = 0;
+    private boolean[] joys;
 
     public Joystick getJoystick() {
         return j;
     }
 
     public void startReplay() {
+        int b = j.getButtonCount();
+        int jo = j.getAxisCount();
+        boolean[] buttons = new boolean[b];
+        for (int i = 0; i<b; i++) buttons[i] = true;
+        boolean[] joys = new boolean[jo];
+        for (int i = 0; i<jo; i++) joys[i] = true;
+        startReplay(buttons, joys);
+    }
+
+    public void startReplay(boolean[] buttons, boolean[] joys) {
+        if (jb != null) jb.configure(buttons);
+        this.joys = joys;
         clock.reset();
         clock.start();
         replay = true;
     }
 
     public void stopReplay() {
+        if (jb != null) jb.configure(new boolean[j.getButtonCount()]);
+        joys = new boolean[j.getAxisCount()];
         replay = false;
         clock.stop();
     }
@@ -73,10 +88,11 @@ public class RecordedJoystick {
         j = new Joystick(port);
         start = makePlaceHolder();
         head = new BinaryNode("", null);
+        joys = new boolean[j.getAxisCount()];
     }
 
     public double getRawAxis(int axis) {
-        if (!replay) {
+        if (!joys[axis]) {
             return j.getRawAxis(axis);
         } else {
             while (start.next!=null && start.next.time<clock.get()) {
@@ -116,6 +132,7 @@ public class RecordedJoystick {
         private int button;
         private SpecialButton jb;
         private RecordedJoystick rj;
+        private boolean replay = false;
         
         public SpecialButton(Joystick j, int button, SpecialButton jb, RecordedJoystick rj) {
             this.j = j;
@@ -126,7 +143,7 @@ public class RecordedJoystick {
 
         public boolean get() {
             // returns true when button is supposed to be active
-            if (!rj.replay) {
+            if (!replay) {
                 return j.getRawButton(button);
             } else {
                 while (rj.start.next!=null && rj.start.next.time<rj.clock.get()) {
@@ -134,6 +151,11 @@ public class RecordedJoystick {
                 }
                 return (rj.start.butts&(1 << button-1)) != 0;
             }
+        }
+
+        public void configure(boolean[] buttons) {
+            replay = buttons[button-1];
+            if (jb != null) jb.configure(buttons);
         }
     }
 

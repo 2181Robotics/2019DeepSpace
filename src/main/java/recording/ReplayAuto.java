@@ -13,6 +13,8 @@ public class ReplayAuto extends Command {
 
   private RecordedJoystick joystick;
   private String filename;
+  private boolean buttons[];
+  private boolean joys[];
 
   public ReplayAuto(String filename, RecordedJoystick joystick) {
     // Use requires() here to declare subsystem dependencies
@@ -27,11 +29,18 @@ public class ReplayAuto extends Command {
     }
   }
 
+  public ReplayAuto(String filename, RecordedJoystick joystick, boolean buttons[], boolean joys[]) {
+    this(filename, joystick);
+    this.buttons = buttons;
+    this.joys = joys;
+  }
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     joystick.set(filename);
-    joystick.startReplay();
+    if (buttons != null) joystick.startReplay(buttons, joys);
+    else joystick.startReplay();
   }
 
   // Called repeatedly when this Command is scheduled to run
